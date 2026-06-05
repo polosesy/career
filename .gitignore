@@ -1,0 +1,29 @@
+# PDF outputs — generated artifacts, not committed
+*.pdf
+
+# Local build artifacts (md → html conversion)
+.build/
+*.html
+
+# Node / npm
+node_modules/
+package-lock.json
+package.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Backup files
+*~
+*.bak
+*.swp
+
+# Local-only documents — NOT for public repo.
+# These contain operational details / candid weakness disclosure that
+# should not be published to a GitHub repo. Keep them in the local
+# career/ folder only.
+Cover_Letter_*.md
+Interview_STAR_Stories.md
