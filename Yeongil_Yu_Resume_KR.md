@@ -18,9 +18,9 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 
 | 영역 | 스택 |
 |------|------|
-| **Cloud** | Azure (Expert) — AKS, AGW, AFD, AMW, AMG, Compute Gallery, Managed Identity, Private Endpoint, OpenAI · AWS / GCP (학습 중) |
+| **Cloud** | Azure (Expert) — AKS, AGW, AFD, AMW, AMG, Compute Gallery, Managed Identity, Private Endpoint, |
 | **Container** | Kubernetes (AKS, EKS, OpenShift), Docker, Helm |
-| **IaC** | Terraform, Packer, Ansible (+ Molecule), ARM / Bicep |
+| **IaC** | Terraform, Packer, Ansible (+ Molecule), ARM |
 | **CI / CD** | Jenkins (shared library), GitLab CI, Azure DevOps, ArgoCD, GitHub Actions |
 | **Observability** | Prometheus, Grafana, Grafana Alloy, OpenTelemetry, Loki, Tempo, Micrometer, JMX Exporter, ELK |
 | **SRE 실무** | SLI / SLO, Error Budget Burn-Rate, RED + USE, Brownfield Phase 운영, Runbook 표준화, Incident Postmortem |
@@ -35,15 +35,19 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 
 **책임 / 클라우드아키텍처파트**
 
-Caidentia SaaS 플랫폼의 SRE 및 옵저버빌리티 표준을 처음부터 정립. 모든 항목 **단독 수행 또는 기술 리드**.
+Caidentia SaaS 플랫폼의 Azure 환경을 구축하고, Best Practice(CAF / WAF) 기준으로 아키텍처·거버넌스를 설계·구축. 이후 아키텍처·운영 고도화(멀티테넌트 재설계, 옵저버빌리티 표준, OS 자동화)를 주도.
 
-- **Caidentia AKS 옵저버빌리티 표준 수립** (Master Plan + Phase 0~4) — 5-Tier 대시보드 구조, SLI/SLO + Error Budget Burn-Rate 알림 체계, 카디널리티 룰 정립. **Brownfield 환경에서 무중단으로 단계별 적용**.
-- **Spring Boot + Legacy Spring MVC/Tomcat 통합 계측 트랙** 설계 — Micrometer + OpenTelemetry + PrometheusMeterRegistry + JMX Exporter sidecar 를 **Grafana Alloy DaemonSet 한 곳으로 수렴**해 Azure Managed Prometheus / Loki / Tempo 로 전송.
-- **Terraform 기반 옵저버빌리티 IaC** (Azure Managed Grafana + Monitor Workspace Brownfield import, AAD/RBAC, Alloy, kube-state-metrics, node-exporter) + **런북 11건** 정립.
+**아키텍처 / 거버넌스 (주 업무)**
+
+- **Caidentia Azure SaaS 플랫폼 환경 구축** — Best Practice(CAF / WAF) 기준 Landing Zone · Hub & Spoke 토폴로지, Management Group / 구독 분리 구조, 환경별 경계(Prod / STG / Demo), Terraform 기반 IaC 표준화.
+- **Azure 거버넌스 체계 설계·구축** — Azure Policy(deny / audit) · 네이밍 · 태깅 표준, RBAC 권한 위임 · 최소 권한 · PIM(Just-in-Time) · Managed Identity, Defender for Cloud · NSG / 방화벽 · Private Endpoint 보안 베이스라인, 비용 거버넌스(FinOps) · 예산 알림.
+- **멀티테넌트 SaaS 아키텍처 재설계 (To-Be 설계 주도, 팀 협업)** (3-Tier Shared → 테넌트 격리), Hub & Spoke + AFD + AGW 도메인 라우팅, **Shared 서비스 계층(공용 DB / Search / Storage / AI Gateway) 표준화** 설계.
+
+**아키텍처 / 운영 고도화**
+
+- **Caidentia AKS 옵저버빌리티 표준 수립** 5-Tier 대시보드 구조, SLI/SLO + Error Budget Burn-Rate 알림 체계, 카디널리티 룰 정의.
+- **Spring Boot + Legacy Spring MVC/Tomcat 통합 계측 트랙** 설계 — Micrometer + OpenTelemetry + PrometheusMeterRegistry + JMX Exporter sidecar 를 **Grafana Alloy DaemonSet 한 곳으로 수렴**해 Azure Managed Prometheus / Loki / Tempo 로 전송. (Terraform Brownfield import, **런북 11건** 포함)
 - **Caidentia OS 골든이미지 자동화** (Packer + Ansible + Jenkins, CAI-SO-01 통제) — SSI(AC01~AC06) ↔ Ansible role 감사 매핑, Molecule 단위 테스트, **GitLab CI(lint) + Jenkins(빌드/게시/승인) 분담**, KR→US 비동기 복제, 야간 드리프트 점검.
-- **멀티테넌트 SaaS 아키텍처 재설계** (3-Tier Shared → 테넌트 격리) — SOC 2 / ISO 27001 / 개인정보보호법 대응, Hub & Spoke + AGW 도메인 라우팅, **기존 GPU RI(2대/3년) 를 Self-hosted 모델 서빙으로 흡수**.
-- **Azure Unified Dashboard PoC** (사내 AI 활용 생산성 사례) — Claude Code 활용 **19 커밋 / 약 19,800 LoC** TypeScript 풀스택 모노레포 (Azure Resource Graph / Monitor / Cost Management + ReactFlow 2D / Three.js 3D 토폴로지 + OBO 인증).
-- **AI 인프라 운영 가이드 8건+** (Azure OpenAI / Self-hosted LLM SSE / AFD-AGW X-Forwarded / Azure Files SMB / NSG Deny-All / Docker 디스크 / DNS 전파 등) 정립.
 
 ---
 
@@ -122,14 +126,26 @@ _엠로 · 2025. ~ 진행중_
 _엠로 · 2025. ~ 진행중_
 
 📝 **배경** : 3-Tier Shared 구조 (DB/Search/Storage 공유, Demo/POC/Prod 혼재, GPU RI 2대 미활용, CI/CD 없음)
-🎯 **과제** : SOC 2 Type II / ISO 27001 / 개인정보보호법 인증 기준 충족 + 매몰비용 (GPU RI) 보존 + 테넌트 격리
+🎯 **과제** : SOC 2 Type II / ISO 27001 인증 기준 충족 + 매몰비용 (GPU RI) 보존 + 테넌트 격리
 🤹 **역할** : 아키텍처 설계 및 의사결정 문서화 (팀 협업)
+
+🏗️ **서비스 아키텍처 설계 구성** :
+- **네트워크 토폴로지** — Hub & Spoke 기반으로 환경별 Spoke(Prod / STG / Demo) 분리, Hub 에 공용 보안/게이트웨이 집약. 외부 진입은 AFD → AGW 2단 계층, 내부 통신은 Private Endpoint + Private DNS 로 폐쇄.
+- **트래픽 / 테넌트 라우팅** — AGW Host/Path 라우팅으로 테넌트별 도메인 분기 (`shared.kdnc.com` 패턴), 테넌트 식별 → 백엔드 풀 매핑.
+- **워크로드 계층** — AKS(애플리케이션) + VMSS(GPU/모델 서빙) 혼합 구성, Managed Identity + RBAC 기반 최소 권한, Flyway 로 스키마 버전 관리.
+- **AI 플랫폼 계층** — AI 공용 API Gateway 뒤에 Azure OpenAI 와 Self-hosted 모델 서빙을 함께 두어, 기존 **GPU RI 2대(3년)** 를 Self-hosted 경로로 흡수 (매몰비용 회피). Private Endpoint + 사내 방화벽 + 토큰 풀 / 캐시 설계.
+
+🧩 **Shared 서비스 아키텍처 구성** :
+- 테넌트 공통 기능을 **Shared Tier** 로 분리 — 공용 RDB(스키마/Row 단위 격리), 공용 Search, 공용 Object Storage, 공용 AI Gateway 를 단일 계층으로 표준화.
+- 테넌트별 **데이터 격리 경계** 정의 (공유 자원에서 테넌트 키 기반 논리 격리 → 단계적 물리 격리 전환 경로 설계).
+- Shared 자원은 Hub/공용 Spoke 에 배치하고 각 환경 Spoke 가 Private Endpoint 로 접근, 공용 컴포넌트의 단일 장애점(SPOF) 및 카디널리티 영향 검토.
+
 ✅ **성과** :
 - 12개 Gap 식별 및 우선순위 매핑
-- Hub & Spoke 기반 Spoke 환경 분리 (Prod / STG / Demo) 설계
-- AGW Host/Path 라우팅으로 멀티테넌트 도메인 라우팅 (`shared.kdnc.com` 패턴)
+- Hub & Spoke + Shared Tier 분리 기반의 To-Be 아키텍처 설계 문서화
+- AGW Host/Path 라우팅 멀티테넌트 도메인 라우팅 설계 (`shared.kdnc.com` 패턴)
 - AI 공용 API Gateway + Self-hosted 모델 서빙으로 **GPU RI 2대 흡수** (매몰비용 회피)
-- Compliance Architecture Plan (SOC 2 / ISO 27001 / 개인정보보호법) 매핑
+- Compliance Architecture Plan (SOC 2 / ISO 27001) 매핑
 - Azure OpenAI Architecture Report (Private Endpoint + 사내 방화벽 + 토큰 풀 / 캐시 설계)
 
 🔨 **기술** : Azure AGW, AFD, AKS / VMSS, Private Endpoint, MI, Azure OpenAI, RBAC, Flyway, Jenkins, Hub & Spoke
@@ -252,7 +268,7 @@ B.S. 미디어소프트웨어 (학사 졸업)
 
 저는 **SW 검증(QA) → CI/CD 자동화 → Cloud Infrastructure → SRE/Observability** 로 영역을 확장해온 **8년차 엔지니어**입니다. 자동차 텔레매틱스 SW 검증(GM/VW/현대) → Jenkins/Gerrit/Docker 기반 멀티 OEM CI/CD 통합 시스템 구축 → Azure AKS 운영 / Landing Zone 설계 → 현재 Brownfield 환경의 옵저버빌리티 표준 수립을 담당하고 있습니다.
 
-**엠로 클라우드아키텍처파트**에서는 Caidentia 운영 환경의 SRE 표준을 처음부터 정립하고 있습니다. 대표적인 산출물로 (1) Azure AKS 위 Spring Boot + Legacy Spring MVC 통합 옵저버빌리티 표준(Master Plan + Phase 0~4) 및 런북 11건, (2) Packer + Ansible + Jenkins 기반 Ubuntu OS 골든이미지 자동화 (CAI-SO-01 통제, SSI AC01~AC06 자동 매핑, KR→US 멀티 리전 복제, 야간 드리프트 점검), (3) 3-Tier Shared → Multi-tenant SaaS 재설계 (SOC2 / ISO 27001 / 개인정보보호법 대응, AGW 도메인 라우팅, GPU RI 2대 흡수 설계), (4) AI(Claude Code) 활용 사내 운영 플랫폼 PoC (Azure Unified Dashboard, 19 커밋 / 약 19,800 LoC 풀스택) 가 있습니다.
+**엠로 클라우드아키텍처파트**에서는 Caidentia 운영 환경의 SRE 표준을 처음부터 정립하고 있습니다. 대표적인 산출물로 (1) Azure AKS 위 Spring Boot + Legacy Spring MVC 통합 옵저버빌리티 표준(Master Plan + Phase 0~4) 및 런북 11건, (2) Packer + Ansible + Jenkins 기반 Ubuntu OS 골든이미지 자동화 (CAI-SO-01 통제, SSI AC01~AC06 자동 매핑, KR→US 멀티 리전 복제, 야간 드리프트 점검), (3) 3-Tier Shared → Multi-tenant SaaS 재설계 (SOC2 / ISO 27001 대응, Shared 서비스 계층 표준화, AGW 도메인 라우팅, GPU RI 2대 흡수 설계), (4) AI(Claude Code) 활용 사내 운영 플랫폼 PoC (Azure Unified Dashboard, 19 커밋 / 약 19,800 LoC 풀스택) 가 있습니다.
 
 이전 경력에서는 **클루커스(2022.05~2025.04)** 에서 고려해운 AKS 무중단 버전 업그레이드(1.20→1.28.9 Blue/Green), 한독 · 성주DND Azure Landing Zone 구축, 크래프톤 AKS 기반 RedisJson 1000-Pod PoC, OpenShift 폐쇄망 구축 등을 담당했습니다.
 
