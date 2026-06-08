@@ -10,7 +10,7 @@ LinkedIn: _[TBD — update English profile]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 
 ## Summary
 
-Cloud Infrastructure, DevOps, and SRE engineer with 8+ years spanning automotive software QA, multi-OEM CI/CD platforms, Azure AKS operations, Landing Zone architecture, and Brownfield observability standardization. Currently establishing the SRE and observability standard for the Caidentia SaaS platform at emro. Triple-certified Kubernetes practitioner (CKS / CKAD / CKA) and Microsoft Azure Solutions Architect Expert. Actively expanding into AI infrastructure, MLOps, and multi-cloud platform engineering.
+Cloud Infrastructure, DevOps, and SRE engineer with 8+ years spanning automotive software QA, multi-OEM CI/CD platforms, Azure AKS operations, Landing Zone architecture, and Brownfield observability standardization. Currently establishing the SRE and observability standard for the Caidentia SaaS platform at emro. Kubernetes-certified across **KCNA / CKA / CKAD / CKS** and a **Microsoft Azure Solutions Architect Expert**. Actively expanding into AI infrastructure and multi-cloud platform engineering.
 
 ---
 
@@ -18,14 +18,14 @@ Cloud Infrastructure, DevOps, and SRE engineer with 8+ years spanning automotive
 
 | Domain | Stack |
 |--------|-------|
-| **Cloud** | Azure (Expert) — AKS, AGW, AFD, AMW, AMG, Compute Gallery, Managed Identity, Private Endpoint, OpenAI · AWS / GCP (learning) |
+| **Cloud** | Azure (Expert), NCP, AWS / GCP |
 | **Containers** | Kubernetes (AKS, EKS, OpenShift), Docker, Helm |
 | **IaC** | Terraform, Packer, Ansible (+ Molecule), ARM / Bicep |
 | **CI / CD** | Jenkins (shared library), GitLab CI, Azure DevOps, ArgoCD, GitHub Actions |
-| **Observability** | Prometheus, Grafana, Grafana Alloy, OpenTelemetry, Loki, Tempo, Micrometer, JMX Exporter, ELK |
-| **SRE Practices** | SLI / SLO, Error Budget Burn-Rate alerting, RED + USE, Brownfield phased rollout, Runbook standardization, Incident postmortem |
-| **Languages** | Java / Spring (operated workload), PowerShell, Bash, TypeScript / Node.js, Python (learning) |
-| **AI Tooling** | Claude Code (used for in-house productivity PoC delivery) |
+| **Observability** | Prometheus, Grafana, Grafana Alloy, OpenTelemetry, Loki, Tempo, Micrometer, JMX Exporter |
+| **SRE Practices** | SLI / SLO, Error Budget Burn-Rate alerting, RED + USE, Brownfield phased rollout, Runbook standardization, Incident postmortem, DR / BCP (Warm Standby, RTO / RPO, Region Failover) |
+| **Languages** | PowerShell · Bash (hands-on automation) · Java / Spring (operated / instrumented) · TypeScript / Node.js · Python (AI-assisted development) |
+| **AI Tooling** | Claude Code |
 
 ---
 
@@ -35,14 +35,14 @@ Cloud Infrastructure, DevOps, and SRE engineer with 8+ years spanning automotive
 
 **Senior Cloud Architect, Cloud Architecture Part**
 
-Establishing the SRE and observability standard for the Caidentia SaaS platform on Azure AKS. Single contributor or technical lead on every initiative below.
+Establishing the SRE and observability standard for the Caidentia SaaS platform on Azure AKS. Primarily a single contributor across the initiatives below (multi-tenant redesign in team collaboration).
 
-- Authored the **Caidentia AKS Observability Master Plan** (5-tier dashboard hierarchy, SLI / SLO / Error Budget Burn-Rate alerting, RED + USE, cardinality rules) and drove its **Phase 0–4 rollout end-to-end in a Brownfield environment with zero operational downtime**.
+- Authored the **Caidentia AKS Observability Master Plan** (5-tier dashboard hierarchy, SLI / SLO / Error Budget Burn-Rate alerting, RED + USE, cardinality rules) — a **self-initiated standard** — and have been rolling it out **Phase 0–4 in a Brownfield environment with zero operational downtime** (rollout in progress).
 - Designed dual instrumentation tracks for **Spring Boot** (Micrometer + OpenTelemetry) and **Legacy Spring MVC on Tomcat** (PrometheusMeterRegistry + JMX Exporter sidecar), unifying both behind a single **Grafana Alloy DaemonSet** emitting to Azure Managed Prometheus, Loki, and Tempo.
 - Codified the observability infrastructure with **Terraform** (Brownfield import of Azure Managed Grafana + Monitor Workspace, AAD / RBAC, Alloy, kube-state-metrics, node-exporter); standardized **11 runbooks** tied to all critical alerts (HikariCPPending, TomcatThreadSaturation, LogbackErrorStorm, SSEEmitterLeak, SLOBurnRateFast, etc.).
 - Built the **Caidentia OS golden image automation** (Packer + Ansible + Jenkins) implementing the CAI-SO-01 security control. Mapped the Samsung Security Index (AC01–AC06) to Ansible roles with full audit traceability, added Molecule unit tests, and split GitLab CI (lint + Molecule) from Jenkins (Packer build, Compute Gallery publish, security approval gate, smoke test). Designed asynchronous **KR → US snapshot replication** for multi-region image versioning and a nightly drift-check job for continuous evaluation.
-- Redesigned the **Caidentia multi-tenant SaaS architecture** (3-tier shared → tenant-isolated) targeting **SOC 2 Type II, ISO 27001, and Korean privacy law** compliance. Designed Hub & Spoke environment separation, AGW host/path-based tenant routing, an AI shared API gateway absorbing the pre-committed GPU RI (×2, 3-year) into self-hosted model serving, and RBAC + Managed Identity authentication.
-- Delivered the **Azure Unified Dashboard** — an internal Azure operations platform PoC built with Claude Code as a pair-programming assistant. **19 commits / ~19,800 LoC** TypeScript full-stack monorepo (118 source files, 21 API endpoints, 8 frontend pages) integrating Azure Resource Graph, Monitor, Cost Management, Traffic Analytics, NSG Flow Log, and App Insights with ReactFlow 2D + Three.js 3D topology views and OBO authentication. Registered as an official internal **"AI Productivity Use Case"** report.
+- Redesigned the **Caidentia multi-tenant SaaS architecture** (3-tier shared → tenant-isolated) targeting **SOC 2 Type II and ISO 27001** compliance (To-Be design, team collaboration). Designed Hub & Spoke environment separation, AGW host/path-based tenant routing, an AI shared API gateway absorbing the pre-committed GPU RI (×2, 3-year) into self-hosted model serving, and RBAC + Managed Identity authentication.
+- Designed the **Caidentia DR (Disaster Recovery) Zone** as a cost-tiered **Warm Standby** in the paired region (East US ↔ West US) targeting **RTO 15 min / RPO 1 hr**. Kept near-zero-cost network primitives (VNet / Subnet / NAT Gateway) always-on while codifying disaster-time resources (AGW / LB / Redis / VM) in **Terraform**. Used **PostgreSQL Flexible Server read replicas + Virtual Endpoint** for failover-transparent endpoints (RTO 7 s / RPO 20 min) and **RA-GRS Blob Storage** for cross-region replication, and standardized a **DR drill procedure** working around Azure managed-failover's non-testability (Key Vault, etc.).
 - Authored **8+ AI infrastructure operations guides** for Azure OpenAI / Self-hosted LLM workloads — SSE streaming timeouts across AGW, AFD ↔ AGW X-Forwarded header redirect loops, Azure Files SMB `mfsymlinks` mounting, NSG Deny-All impact analysis, and more. Converted recurring incidents into reusable institutional knowledge.
 
 ---
@@ -99,6 +99,7 @@ Built a VMware vSphere private cloud against a customer scenario — vCenter, th
 
 | Certification | Issued | Issuer |
 |---------------|--------|--------|
+| Kubernetes and Cloud Native Associate (**KCNA**) | Jan 2026 | The Linux Foundation |
 | Certified Kubernetes Security Specialist (**CKS**) | Mar 2024 | The Linux Foundation |
 | Certified Kubernetes Application Developer (**CKAD**) | Feb 2024 | The Linux Foundation |
 | Certified Kubernetes Administrator (**CKA**) | Sep 2022 | The Linux Foundation _(renewal status — verify)_ |
@@ -112,7 +113,7 @@ Built a VMware vSphere private cloud against a customer scenario — vCenter, th
 ## Education
 
 **Joongbu University** &nbsp;·&nbsp; _Mar 2008 – Feb 2015_
-B.S. in Media Software
+B.S. in Game Science
 
 **Korea Radio Promotion Association (KRRA)**
 - Kubernetes-based MSA Development Track &nbsp;·&nbsp; _Nov 2021 – Dec 2021_
@@ -125,4 +126,4 @@ B.S. in Media Software
 | Language | Proficiency |
 |----------|-------------|
 | Korean | Native |
-| English | Business — Reading / Writing proficient, Speaking conversational |
+| English | Reading / Writing workable (AI-assisted), Speaking basic |

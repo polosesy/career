@@ -10,7 +10,7 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 
 ## 한줄 소개
 
-8년차 Cloud Infrastructure / DevOps / SRE 엔지니어. **QA → CI/CD → Cloud Architect → SRE/Observability** 로 영역을 확장하며 Azure 환경에서 AKS 운영, Landing Zone 설계, **Brownfield 옵저버빌리티(Prometheus / Grafana / Alloy + OTel) 표준 수립**, Packer + Ansible 기반 OS 골든이미지 자동화, 멀티테넌트 SaaS 재설계를 주도해왔습니다. **CKS · CKAD · CKA + Azure Solutions Architect Expert** 보유. 현재 AI 인프라와 멀티클라우드 플랫폼 엔지니어링으로 영역을 확장 중입니다.
+8년차 Cloud Infrastructure / DevOps / SRE 엔지니어. **QA → 형상관리,CI/CD → Cloud Architect → SRE/Observability** 로 영역을 확장하며 Azure 환경에서 AKS 운영, Landing Zone 설계, **Brownfield 옵저버빌리티(Prometheus / Grafana / Alloy + OTel) 표준 수립**, Packer + Ansible 기반 OS 골든이미지 자동화, 멀티테넌트 SaaS 재설계를 주도해왔습니다. **KCNA · CKS · CKAD · CKA + Azure Solutions Architect Expert** 보유. 현재 AI 인프라와 멀티클라우드 플랫폼 엔지니어링으로 영역을 확장 중입니다.
 
 ---
 
@@ -18,14 +18,14 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 
 | 영역 | 스택 |
 |------|------|
-| **Cloud** | Azure (Expert) — AKS, AGW, AFD, AMW, AMG, Compute Gallery, Managed Identity, Private Endpoint, |
+| **Cloud** | Azure (Expert), NCP, AWS / GCP |
 | **Container** | Kubernetes (AKS, EKS, OpenShift), Docker, Helm |
 | **IaC** | Terraform, Packer, Ansible (+ Molecule), ARM |
 | **CI / CD** | Jenkins (shared library), GitLab CI, Azure DevOps, ArgoCD, GitHub Actions |
-| **Observability** | Prometheus, Grafana, Grafana Alloy, OpenTelemetry, Loki, Tempo, Micrometer, JMX Exporter, ELK |
-| **SRE 실무** | SLI / SLO, Error Budget Burn-Rate, RED + USE, Brownfield Phase 운영, Runbook 표준화, Incident Postmortem |
-| **언어** | Java / Spring (운영 대상), PowerShell, Bash, TypeScript / Node.js, Python (학습 중) |
-| **AI 도구** | Claude Code (사내 생산성 PoC 활용) |
+| **Observability** | Prometheus, Grafana, Grafana Alloy, OpenTelemetry, Loki, Tempo, Micrometer, JMX Exporter |
+| **SRE 실무** | SLI / SLO, Error Budget Burn-Rate, RED + USE, Brownfield Phase 운영, Runbook 표준화, Incident Postmortem, DR / BCP (Warm Standby, RTO / RPO, Region Failover) |
+| **언어** | PowerShell · Bash (자동화 사용) · Java / Spring (운영·계측 대상) · TypeScript / Node.js · Python (AI 보조 개발) |
+| **AI 도구** | Claude Code |
 
 ---
 
@@ -90,7 +90,7 @@ _엠로 · 2025. 05. ~ 진행중_
 
 📝 **배경** : 과거 TPS 드랍 사고(HikariCP 부족 / Logback 동기 I/O / SSE 누수 / Tomcat 스레드 점유)를 "대시보드만 보고 2분 내 RCA" 할 수 있는 통합 옵저버빌리티 체계로 재정립
 🎯 **과제** : Whatap 단일 의존 + 메트릭 단편화 → Azure 매니지드 서비스(AMW/AMG) 기반 표준 도입, 운영 무중단
-🤹 **역할** : 표준 수립 PM 겸 단독 구축자
+🤹 **역할** : 옵저버빌리티 표준 자발적 제안 및 단독 구축 (Brownfield, 운영 적용 진행중)
 ✅ **성과** :
 - Master Plan(Four Golden Signals / RED+USE / SLI-SLO / Error Budget Burn-Rate / 카디널리티 룰) 1문서 표준화
 - Phase 0 Terraform Brownfield import (AMG + Monitor Workspace + AAD/RBAC + Alloy DaemonSet)
@@ -133,7 +133,6 @@ _엠로 · 2025. ~ 진행중_
 - **네트워크 토폴로지** — Hub & Spoke 기반으로 환경별 Spoke(Prod / STG / Demo) 분리, Hub 에 공용 보안/게이트웨이 집약. 외부 진입은 AFD → AGW 2단 계층, 내부 통신은 Private Endpoint + Private DNS 로 폐쇄.
 - **트래픽 / 테넌트 라우팅** — AGW Host/Path 라우팅으로 테넌트별 도메인 분기 (`shared.kdnc.com` 패턴), 테넌트 식별 → 백엔드 풀 매핑.
 - **워크로드 계층** — AKS(애플리케이션) + VMSS(GPU/모델 서빙) 혼합 구성, Managed Identity + RBAC 기반 최소 권한, Flyway 로 스키마 버전 관리.
-- **AI 플랫폼 계층** — AI 공용 API Gateway 뒤에 Azure OpenAI 와 Self-hosted 모델 서빙을 함께 두어, 기존 **GPU RI 2대(3년)** 를 Self-hosted 경로로 흡수 (매몰비용 회피). Private Endpoint + 사내 방화벽 + 토큰 풀 / 캐시 설계.
 
 🧩 **Shared 서비스 아키텍처 구성** :
 - 테넌트 공통 기능을 **Shared Tier** 로 분리 — 공용 RDB(스키마/Row 단위 격리), 공용 Search, 공용 Object Storage, 공용 AI Gateway 를 단일 계층으로 표준화.
@@ -152,21 +151,20 @@ _엠로 · 2025. ~ 진행중_
 
 ---
 
-### Azure Unified Dashboard — AI(Claude Code) 활용 풀스택 운영 플랫폼
-_엠로 / 클라우드아키텍처파트 · 2026. ~ 진행중_
+### Caidentia DR(재해복구) Zone 설계 및 Warm Standby 구성
+_엠로 · 2025. ~ 진행중_
 
-📝 **배경** : 사내 Azure 운영자가 여러 포털을 오가던 비효율을 단일 창구로 통합
-🎯 **과제** : AI 코딩 도구(Claude Code) 의 실제 생산성 검증 + 엔터프라이즈 표준 (OBO + MSAL + Azure SDK) 준수
-🤹 **역할** : 단독 설계 및 구현
+📝 **배경** : Caidentia 운영 환경의 리전 단위 재해(Region Outage)에 대비한 DR Zone 부재 → 핵심 자원(DB / Storage) 복구 체계 필요
+🎯 **과제** : **RTO 15분 / RPO 1시간** 충족 + DR 상시 유지 비용 최소화(Warm Standby) + Azure 관리형 Failover 의 "사용자 테스트 불가" 한계 우회
+🤹 **역할** : DR 아키텍처 설계 · Terraform 코드화 · DR 훈련 절차 수립 (단독, 가이드 표준화)
 ✅ **성과** :
-- **19 커밋만에 약 19,800 LoC** 풀스택 모노레포 (TypeScript 73 + React/TSX 33 + CSS 12 = 118 파일)
-- 21개 API 엔드포인트 / 21개 서비스 모듈 / 8개 프론트엔드 페이지
-- 실시간 인프라 토폴로지 (ReactFlow 2D + Three.js 3D), 의존성 자동 추론
-- Azure Resource Graph / Monitor / Cost Management / Traffic Analytics / NSG Flow Log / App Insights 등 7개 데이터 소스 통합
-- OBO(On-Behalf-Of) 인증 + 데모 Mock 데이터 이중 모드
-- 사내 "AI 활용 생산성 향상 Usecase" 공식 등록
+- **비용 계층화 Warm Standby 설계** — 상시 유지(거의 무과금: VNet / Subnet / NAT Gateway) vs 재해 시 Terraform 수동 생성(AGW / LB / Redis / VM) 으로 자원 분리
+- **PostgreSQL Flexible 읽기 복제본 + Virtual Endpoint** — Pair Region 비의존 복제, Failover 시 Endpoint 변경 무중단(Primary 자동 중계) (RTO 7초 / RPO 20분)
+- **RA-GRS(읽기 전용 지역 중복) Blob Storage** — Pair Region 자동 복제, Failover 시 Primary Endpoint 자동 중계 (RTO 15분 / RPO 20분)
+- **DR 훈련 절차 표준화** — 관리형 Failover(Key Vault 등) 테스트 불가 한계를 "Failover 발생 가정 + Pair Region 사전 구성"으로 우회, Staging-Primary 훈련 시 Storage 읽기 복제본 추가 구성 가이드
+- **Caidentia DR Terraform 구성 코드** — 재해 시 생성 자원(AGW / LB / Redis / VM) 코드화로 복구 재현성 확보
 
-🔨 **기술** : TypeScript 5.7, Next.js 16, React 19, Express, Azure MSAL (OBO), Azure SDK (identity, arm-resourcegraph, storage-blob), ReactFlow, Three.js, D3.js, ELK.js, Zod, Claude Code
+🔨 **기술** : Azure (East US ↔ West US Region Pair, Failover), PostgreSQL Flexible Server (Virtual Endpoint, Read Replica), RA-GRS Blob Storage, Azure Key Vault, Application Gateway, Load Balancer, Redis, Terraform
 
 ---
 
@@ -234,6 +232,7 @@ _건우솔루션 · 2019. 07. ~ 2020. 01._
 
 | 자격증 | 취득 | 발급기관 |
 |--------|------|----------|
+| Kubernetes and Cloud Native Associate (**KCNA**) | 2026. 01. | The Linux Foundation |
 | Certified Kubernetes Security Specialist (**CKS**) | 2024. 03. | The Linux Foundation |
 | Certified Kubernetes Application Developer (**CKAD**) | 2024. 02. | The Linux Foundation |
 | Certified Kubernetes Administrator (**CKA**) | 2022. 09. | The Linux Foundation _(갱신 상태 — 확인 필요)_ |
@@ -247,7 +246,7 @@ _건우솔루션 · 2019. 07. ~ 2020. 01._
 ## 학력 / 교육
 
 **중부대학교** &nbsp;·&nbsp; _2008. 03. ~ 2015. 02._
-B.S. 미디어소프트웨어 (학사 졸업)
+B.S. 게임학과 (학사 졸업)
 
 **한국전파진흥협회 (KRRA)** — 사설 교육
 - Kubernetes 기반 MSA 개발 과정 &nbsp;·&nbsp; _2021. 11. ~ 2021. 12._
@@ -260,7 +259,7 @@ B.S. 미디어소프트웨어 (학사 졸업)
 | 언어 | 수준 |
 |------|------|
 | 한국어 | 원어민 |
-| English | 비즈니스 — 읽기/쓰기 능숙, 회화 일상 가능 |
+| English | 읽기/쓰기 기본 가능 (AI 도구 활용), 회화는 기초 수준 |
 
 ---
 
@@ -268,8 +267,8 @@ B.S. 미디어소프트웨어 (학사 졸업)
 
 저는 **SW 검증(QA) → CI/CD 자동화 → Cloud Infrastructure → SRE/Observability** 로 영역을 확장해온 **8년차 엔지니어**입니다. 자동차 텔레매틱스 SW 검증(GM/VW/현대) → Jenkins/Gerrit/Docker 기반 멀티 OEM CI/CD 통합 시스템 구축 → Azure AKS 운영 / Landing Zone 설계 → 현재 Brownfield 환경의 옵저버빌리티 표준 수립을 담당하고 있습니다.
 
-**엠로 클라우드아키텍처파트**에서는 Caidentia 운영 환경의 SRE 표준을 처음부터 정립하고 있습니다. 대표적인 산출물로 (1) Azure AKS 위 Spring Boot + Legacy Spring MVC 통합 옵저버빌리티 표준(Master Plan + Phase 0~4) 및 런북 11건, (2) Packer + Ansible + Jenkins 기반 Ubuntu OS 골든이미지 자동화 (CAI-SO-01 통제, SSI AC01~AC06 자동 매핑, KR→US 멀티 리전 복제, 야간 드리프트 점검), (3) 3-Tier Shared → Multi-tenant SaaS 재설계 (SOC2 / ISO 27001 대응, Shared 서비스 계층 표준화, AGW 도메인 라우팅, GPU RI 2대 흡수 설계), (4) AI(Claude Code) 활용 사내 운영 플랫폼 PoC (Azure Unified Dashboard, 19 커밋 / 약 19,800 LoC 풀스택) 가 있습니다.
+**엠로 클라우드아키텍처파트**에서는 Caidentia 운영 환경의 SRE 표준을 정립하고 있습니다. 대표적인 산출물로 (1) Azure AKS 위 Spring Boot + Legacy Spring MVC 통합 옵저버빌리티 표준(Master Plan + Phase 0~4) 및 런북 11건, (2) Packer + Ansible + Jenkins 기반 Ubuntu OS 골든이미지 자동화 (CAI-SO-01 통제, SSI AC01~AC06 자동 매핑, 야간 드리프트 점검), (3) 3-Tier Shared → Multi-tenant SaaS 재설계 (SOC2 / ISO 27001 대응, Shared 서비스 계층 표준화, AGW 도메인 라우팅, GPU RI 2대 흡수 설계), (4) Caidentia DR(재해복구) Zone 설계 (Warm Standby, PostgreSQL Virtual Endpoint + RA-GRS, RTO 15분 / RPO 1시간, Terraform 코드화) 가 있습니다.
 
-이전 경력에서는 **클루커스(2022.05~2025.04)** 에서 고려해운 AKS 무중단 버전 업그레이드(1.20→1.28.9 Blue/Green), 한독 · 성주DND Azure Landing Zone 구축, 크래프톤 AKS 기반 RedisJson 1000-Pod PoC, OpenShift 폐쇄망 구축 등을 담당했습니다.
+이전 경력에서는 **클루커스(2022.05~2025.04)** 에서 고려해운 AKS 무중단 버전 업그레이드(1.20→1.28.9 Blue/Green), 한독 · 성주DND Azure Landing Zone 구축, 크래프톤 AKS 기반 RedisJson 1000-Pod PoC 등을 담당했습니다.
 
 운영 철학은 **"Phase 별 종료 조건 + 함정 누적 회고"** 입니다. 모든 변경을 작은 단위로 끊고, 실패에서 배운 함정을 반드시 다음 Phase 에 반영하는 방식이 Brownfield 환경의 회복력을 결정한다고 믿습니다. **향후 방향은 AI 인프라와 멀티클라우드(AWS/GCP) 플랫폼 엔지니어링이며, 대규모 AI 워크로드를 위한 옵저버빌리티 / 자동화 / 멀티 배포 모델(cloud / private cloud / on-prem) 운영에 깊이 기여하고자 합니다.**
