@@ -10,7 +10,7 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 
 ## Summary
 
-8-year Cloud Infrastructure / DevOps / SRE engineer. Expanded across **QA → SCM, CI/CD → Cloud Architect → SRE/Observability**, leading AKS operations, Landing Zone design, **Brownfield observability (Prometheus / Grafana / Alloy + OTel) standardization**, Packer + Ansible OS golden image automation, and multi-tenant SaaS redesign on Azure. Holds **KCNA · CKS · CKAD · CKA + Azure Solutions Architect Expert**. Currently expanding into AI infrastructure and multi-cloud platform engineering.
+8-year Cloud Infrastructure / DevOps / SRE engineer. Expanded across **QA → SCM, CI/CD → Cloud Architect → SRE/Observability**, leading AKS operations, Landing Zone design, **observability (Prometheus / Grafana / Alloy + OTel) standardization**, SSI-checklist-based OS golden image hardening script automation, and multi-tenant SaaS redesign on Azure. Holds **KCNA · CKS · CKAD · CKA + Azure Solutions Architect Expert**. Currently expanding into AI infrastructure and multi-cloud platform engineering.
 
 ---
 
@@ -20,7 +20,7 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 |--------|-------|
 | **Cloud** | Azure (Expert), NCP, AWS / GCP |
 | **Containers** | Kubernetes (AKS, EKS, OpenShift), Docker, Helm |
-| **IaC** | Terraform, Packer, Ansible (+ Molecule), ARM |
+| **IaC** | Terraform, ARM |
 | **CI / CD** | Jenkins (shared library), GitLab CI, Azure DevOps, ArgoCD, GitHub Actions |
 | **Observability** | Prometheus, Grafana, Grafana Alloy, OpenTelemetry, Loki, Tempo, Micrometer, JMX Exporter |
 | **SRE Practices** | SLI / SLO, Error Budget Burn-Rate, RED + USE, Brownfield phased rollout, Runbook standardization, Incident postmortem, DR / BCP (Warm Standby, RTO / RPO, Region Failover) |
@@ -39,15 +39,16 @@ Built the Azure environment for the Caidentia SaaS platform and designed/impleme
 
 **Architecture / Governance (primary)**
 
-- **Caidentia Azure SaaS platform build** — Best Practice (CAF / WAF) Landing Zone · Hub & Spoke topology, Management Group / subscription separation, per-environment boundaries (Prod / STG / Demo), Terraform-based IaC standardization.
-- **Azure governance framework** — Azure Policy (deny / audit) · naming · tagging standards, RBAC delegation · least privilege · PIM (Just-in-Time) · Managed Identity, Defender for Cloud · NSG / firewall · Private Endpoint security baseline, cost governance (FinOps) · budget alerts.
+- **Caidentia Azure SaaS platform build** — Best Practice (CAF / WAF) Landing Zone · Hub & Spoke topology, Management Group / subscription separation, per-environment boundaries (Prod / STG), Terraform-based IaC infrastructure provisioning.
+- **Azure governance framework** — Azure Policy (deny / audit) · naming · tagging standards, RBAC delegation · least privilege · PIM (Just-in-Time) · Managed Identity, Defender for Cloud · NSG / firewall · Private Endpoint security baseline.
+- **FinOps cost optimization** — reservation/commitment discounts (RI / Savings Plan), rightsizing · SKU tuning, scheduled shutdown/scale-down of non-production (Dev / Demo) environments, unused-resource cleanup + storage / log retention optimization, budget alerting → **~55% monthly run-cost reduction (≈ KRW 130M/yr annualized, 8-month sustained downtrend)**.
 - **Multi-tenant SaaS architecture redesign (To-Be design lead, team collaboration)** (3-Tier Shared → tenant isolation), Hub & Spoke + AFD + AGW domain routing, **shared service tier (common DB / Search / Storage / AI Gateway) standardization**.
 
 **Architecture / Operational Maturity**
 
-- **Caidentia AKS observability standard** — 5-tier dashboard structure, SLI/SLO + Error Budget Burn-Rate alerting, cardinality rules.
-- **Spring Boot + Legacy Spring MVC/Tomcat unified instrumentation track** — converging Micrometer + OpenTelemetry + PrometheusMeterRegistry + JMX Exporter sidecar into a single **Grafana Alloy DaemonSet** emitting to Azure Managed Prometheus / Loki / Tempo. (Terraform Brownfield import, **11 runbooks** included)
-- **Caidentia OS golden image automation** (Packer + Ansible + Jenkins, CAI-SO-01 control) — SSI (AC01–AC06) ↔ Ansible role audit mapping, Molecule unit tests, **GitLab CI (lint) + Jenkins (build/publish/approve) split**, async KR→US replication, nightly drift check.
+- **Caidentia AKS observability standard** — 5-tier dashboard structure, SLI/SLO + Error Budget Burn-Rate alerting.
+- **Spring Boot + Legacy Spring MVC/Tomcat unified instrumentation track** — converging Micrometer + OpenTelemetry + PrometheusMeterRegistry + JMX Exporter sidecar into a single **Grafana Alloy DaemonSet** emitting to Azure Managed Prometheus / Loki / Tempo. (Terraform import, **11 runbooks** included)
+- **Caidentia OS golden image automation (PoC, not in production)** (Packer + Ansible + Jenkins, CAI-SO-01 control) — SSI (AC01–AC06) ↔ Ansible role audit mapping, Molecule unit tests, **GitLab CI (lint) + Jenkins (build/publish/approve) split**, async KR→US replication · nightly drift-check design validation.
 
 ---
 
@@ -88,7 +89,7 @@ Automotive telematics SW verification.
 ### Caidentia AKS Observability Standard & Phased Rollout
 _emro · May 2025 – Present (in progress)_
 
-📝 **Background** : Re-framed past TPS-drop incidents (HikariCP exhaustion / Logback synchronous I/O / SSE leak / Tomcat thread saturation) into an integrated observability system enabling "RCA within 2 minutes from dashboards alone"
+📝 **Background** : Caidentia's operational environment relied on a single APM (Whatap) with fragmented metrics, making it hard to define SLI/SLO and perform consistent root-cause analysis (RCA) across mixed Spring Boot + Legacy Spring MVC workloads — no standardized observability system.
 🎯 **Challenge** : Single Whatap dependency + metric fragmentation → adopt an Azure managed-service (AMW/AMG) standard, zero operational downtime
 🤹 **Role** : Self-initiated proposal and sole builder of the observability standard (Brownfield, rollout in progress)
 ✅ **Outcomes** :
@@ -104,12 +105,12 @@ _emro · May 2025 – Present (in progress)_
 
 ---
 
-### Caidentia Ubuntu OS Golden Image Automation
-_emro · 2025 – Present (in progress)_
+### Caidentia Ubuntu OS Golden Image Automation (PoC)
+_emro · 2025 – PoC (not in production)_
 
 📝 **Background** : OS golden image builds ran as manual procedures, risking skipped steps / review delays / weak audit trails
 🎯 **Challenge** : Satisfy the CAI-SO-01 control + codify the build + retain the Cloud Security Part's manual approval gate (immutable image policy)
-🤹 **Role** : Automation design and implementation (sole)
+🤹 **Role** : Automation design and PoC implementation (sole, not yet in production)
 ✅ **Outcomes** :
 - 100% audit traceability between SSI checklist (AC01–AC06) ↔ Ansible tasks
 - Introduced Molecule-based role unit testing
@@ -122,32 +123,30 @@ _emro · 2025 – Present (in progress)_
 
 ---
 
-### Caidentia Multi-tenant SaaS + AI Platform Architecture Redesign
+### Caidentia Multi-tenant SaaS + Single-tenant Enterprise SaaS
 _emro · 2025 – Present (in progress)_
 
-📝 **Background** : 3-Tier Shared structure (shared DB/Search/Storage, mixed Demo/POC/Prod, 2 idle GPU RIs, no CI/CD)
-🎯 **Challenge** : Meet SOC 2 Type II / ISO 27001 certification criteria + preserve sunk cost (GPU RI) + tenant isolation
+📝 **Background** : 3-Tier structure (shared DB/Storage, mixed Demo/POC/Prod)
+🎯 **Challenge** : Meet SOC 2 Type II / ISO 27001 certification criteria + tenant isolation
 🤹 **Role** : Architecture design and decision documentation (team collaboration)
 
 🏗️ **Service architecture design** :
-- **Network topology** — Hub & Spoke with per-environment Spokes (Prod / STG / Demo) separated, shared security/gateway consolidated in the Hub. External ingress via AFD → AGW two-tier, internal traffic closed via Private Endpoint + Private DNS.
-- **Traffic / tenant routing** — AGW Host/Path routing for per-tenant domain branching (`shared.kdnc.com` pattern), tenant identification → backend pool mapping.
-- **Workload tier** — AKS (application) + VMSS (GPU/model serving) hybrid, Managed Identity + RBAC least privilege, Flyway schema versioning.
+- **Network topology** — Hub & Spoke with per-environment Spokes (Prod / STG) separated, shared security/gateway consolidated in the Hub. External ingress via AFD → AGW two-tier, internal traffic closed via Private Endpoint + Private DNS.
+- **Traffic / tenant routing** — AGW Host/Path routing for per-tenant domain branching, tenant identification → backend pool mapping.
+- **Workload tier** — AKS (MSA) workloads + 3-Tier VMSS, Managed Identity + RBAC least-privilege management.
 
 🧩 **Shared service architecture** :
-- Separated common tenant features into a **Shared Tier** — common RDB (schema/row-level isolation), common Search, common Object Storage, common AI Gateway standardized into a single tier.
-- Defined per-tenant **data isolation boundaries** (logical isolation via tenant key on shared resources → staged migration path to physical isolation).
-- Placed shared resources in the Hub/common Spoke, each environment Spoke accessing via Private Endpoint; reviewed single point of failure (SPOF) and cardinality impact of common components.
+- **Shared Tier separation** — common tenant features (common RDB · Search · Object Storage · AI Gateway) standardized into a single shared tier.
+- **Tenant data isolation boundary** — start with tenant-key-based logical isolation on shared resources → staged migration path to physical isolation.
+- **Placement · risk review** — shared resources placed in the Hub/common Spoke (Private Endpoint access); reviewed SPOF · cardinality impact of common components.
 
 ✅ **Outcomes** :
-- 12 gaps identified and priority-mapped
-- To-Be architecture documented on Hub & Spoke + Shared Tier separation
-- AGW Host/Path multi-tenant domain routing design (`shared.kdnc.com` pattern)
-- **Absorbed 2 GPU RIs** via common AI API Gateway + self-hosted model serving (avoiding sunk cost)
-- Compliance Architecture Plan (SOC 2 / ISO 27001) mapping
-- Azure OpenAI Architecture Report (Private Endpoint + internal firewall + token pool / cache design)
+- **Current-state analysis** — 12 gaps in the existing structure identified and priority-mapped
+- **To-Be architecture documentation** — target architecture design on Hub & Spoke + Shared Tier separation
+- **Multi-tenant routing design** — per-tenant domain branching via AGW Host/Path
+- **Compliance mapping** — Compliance Architecture Plan against SOC 2 / ISO 27001
 
-🔨 **Tech** : Azure AGW, AFD, AKS / VMSS, Private Endpoint, MI, Azure OpenAI, RBAC, Flyway, Jenkins, Hub & Spoke
+🔨 **Tech** : Azure AGW, AFD, AKS / VMSS, Private Endpoint, MI, Azure OpenAI, RBAC, Jenkins, Hub & Spoke
 
 ---
 

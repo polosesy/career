@@ -10,7 +10,7 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 
 ## 한줄 소개
 
-8년차 Cloud Infrastructure / DevOps / SRE 엔지니어. **QA → 형상관리,CI/CD → Cloud Architect → SRE/Observability** 로 영역을 확장하며 Azure 환경에서 AKS 운영, Landing Zone 설계, **Brownfield 옵저버빌리티(Prometheus / Grafana / Alloy + OTel) 표준 수립**, Packer + Ansible 기반 OS 골든이미지 자동화, 멀티테넌트 SaaS 재설계를 주도해왔습니다. **KCNA · CKS · CKAD · CKA + Azure Solutions Architect Expert** 보유. 현재 AI 인프라와 멀티클라우드 플랫폼 엔지니어링으로 영역을 확장 중입니다.
+8년차 Cloud Infrastructure / DevOps / SRE 엔지니어. **QA → 형상관리,CI/CD → Cloud Architect → SRE/Observability** 로 영역을 확장하며 Azure 환경에서 AKS 운영, Landing Zone 설계, **옵저버빌리티(Prometheus / Grafana / Alloy + OTel) 표준 수립**, SSI 체크리스트 기반 OS 골든이미지 하드닝 스크립트 자동화, 멀티테넌트 SaaS 재설계를 주도해왔습니다. **KCNA · CKS · CKAD · CKA + Azure Solutions Architect Expert** 보유. 현재 AI 인프라와 멀티클라우드 플랫폼 엔지니어링으로 영역을 확장 중입니다.
 
 ---
 
@@ -20,10 +20,10 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 |------|------|
 | **Cloud** | Azure (Expert), NCP, AWS / GCP |
 | **Container** | Kubernetes (AKS, EKS, OpenShift), Docker, Helm |
-| **IaC** | Terraform, Packer, Ansible (+ Molecule), ARM |
-| **CI / CD** | Jenkins (shared library), GitLab CI, Azure DevOps, ArgoCD, GitHub Actions |
+| **IaC** | Terraform, ARM |
+| **CI / CD** | Jenkins (shared library), GitLab CI, Azure DevOps, ArgoCD |
 | **Observability** | Prometheus, Grafana, Grafana Alloy, OpenTelemetry, Loki, Tempo, Micrometer, JMX Exporter |
-| **SRE 실무** | SLI / SLO, Error Budget Burn-Rate, RED + USE, Brownfield Phase 운영, Runbook 표준화, Incident Postmortem, DR / BCP (Warm Standby, RTO / RPO, Region Failover) |
+| **SRE 실무** | SLI / SLO, Error Budget Burn-Rate, RED + USE, Runbook 표준화, Incident Postmortem, DR / BCP (Warm Standby, RTO / RPO, Region Failover) |
 | **언어** | PowerShell · Bash (자동화 사용) · Java / Spring (운영·계측 대상) · TypeScript / Node.js · Python (AI 보조 개발) |
 | **AI 도구** | Claude Code |
 
@@ -39,15 +39,16 @@ Caidentia SaaS 플랫폼의 Azure 환경을 구축하고, Best Practice(CAF / WA
 
 **아키텍처 / 거버넌스 (주 업무)**
 
-- **Caidentia Azure SaaS 플랫폼 환경 구축** — Best Practice(CAF / WAF) 기준 Landing Zone · Hub & Spoke 토폴로지, Management Group / 구독 분리 구조, 환경별 경계(Prod / STG / Demo), Terraform 기반 IaC 표준화.
-- **Azure 거버넌스 체계 설계·구축** — Azure Policy(deny / audit) · 네이밍 · 태깅 표준, RBAC 권한 위임 · 최소 권한 · PIM(Just-in-Time) · Managed Identity, Defender for Cloud · NSG / 방화벽 · Private Endpoint 보안 베이스라인, 비용 거버넌스(FinOps) · 예산 알림.
+- **Caidentia Azure SaaS 플랫폼 환경 구축** — Best Practice(CAF / WAF) 기준 Landing Zone · Hub & Spoke 토폴로지 / 구독 분리 구조, 환경별 경계(Prod / STG ), Terraform 기반 IaC 인프라 프로비저닝.
+- **Azure 거버넌스 체계 설계·구축** — Azure Policy(deny / audit) · 네이밍 · 태깅 표준, RBAC 권한 위임 · 최소 권한 · PIM(Just-in-Time) · Managed Identity, Defender for Cloud · NSG / 방화벽 · Private Endpoint 보안 베이스라인.
+- **FinOps 비용 최적화** — 예약·약정 할인(RI / Savings Plan), Rightsizing · SKU 조정, 비운영(Dev / Demo) 환경 스케줄 정지·축소, 미사용 리소스 정리 + 스토리지 / 로그 보존정책 최적화, 예산 알림 체계 → **월 운영비 약 55% 절감 (연환산 약 1.3억원 규모, 8개월간 지속 우하향)**.
 - **멀티테넌트 SaaS 아키텍처 재설계 (To-Be 설계 주도, 팀 협업)** (3-Tier Shared → 테넌트 격리), Hub & Spoke + AFD + AGW 도메인 라우팅, **Shared 서비스 계층(공용 DB / Search / Storage / AI Gateway) 표준화** 설계.
 
 **아키텍처 / 운영 고도화**
 
-- **Caidentia AKS 옵저버빌리티 표준 수립** 5-Tier 대시보드 구조, SLI/SLO + Error Budget Burn-Rate 알림 체계, 카디널리티 룰 정의.
-- **Spring Boot + Legacy Spring MVC/Tomcat 통합 계측 트랙** 설계 — Micrometer + OpenTelemetry + PrometheusMeterRegistry + JMX Exporter sidecar 를 **Grafana Alloy DaemonSet 한 곳으로 수렴**해 Azure Managed Prometheus / Loki / Tempo 로 전송. (Terraform Brownfield import, **런북 11건** 포함)
-- **Caidentia OS 골든이미지 자동화** (Packer + Ansible + Jenkins, CAI-SO-01 통제) — SSI(AC01~AC06) ↔ Ansible role 감사 매핑, Molecule 단위 테스트, **GitLab CI(lint) + Jenkins(빌드/게시/승인) 분담**, KR→US 비동기 복제, 야간 드리프트 점검.
+- **Caidentia AKS 옵저버빌리티 표준 수립** 5-Tier 대시보드 구조, SLI/SLO + Error Budget Burn-Rate 알림 체계 정의.
+- **Spring Boot + Legacy Spring MVC/Tomcat 통합 계측 트랙** 설계 — Micrometer + OpenTelemetry + PrometheusMeterRegistry + JMX Exporter sidecar 를 **Grafana Alloy DaemonSet 한 곳으로 수렴**해 Azure Managed Prometheus / Loki / Tempo 로 전송. (Terraform import, **런북 11건** 포함)
+- **Caidentia OS 골든이미지 자동화 (PoC, 운영 미적용)** (Packer + Ansible + Jenkins, CAI-SO-01 통제) — SSI(AC01~AC06) ↔ Ansible role 감사 매핑, Molecule 단위 테스트, **GitLab CI(lint) + Jenkins(빌드/게시/승인) 분담**, KR→US 비동기 복제·야간 드리프트 점검 설계 검증.
 
 ---
 
@@ -86,9 +87,9 @@ Caidentia SaaS 플랫폼의 Azure 환경을 구축하고, Best Practice(CAF / WA
 ## 주요 프로젝트 (별도 노출)
 
 ### Caidentia AKS 옵저버빌리티 표준 수립 및 Phase 별 구축
-_엠로 · 2025. 05. ~ 진행중_
+_엠로 · 2026. 05. ~ 진행중_
 
-📝 **배경** : 과거 TPS 드랍 사고(HikariCP 부족 / Logback 동기 I/O / SSE 누수 / Tomcat 스레드 점유)를 "대시보드만 보고 2분 내 RCA" 할 수 있는 통합 옵저버빌리티 체계로 재정립
+📝 **배경** : Caidentia 운영 환경이 단일 APM(Whatap)에 의존하고 메트릭이 단편화되어, Spring Boot + Legacy Spring MVC 혼재 워크로드 전반의 SLI/SLO 정의와 일관된 장애 원인 분석(RCA)이 어려운 상태 — 표준화된 옵저버빌리티 체계 부재.
 🎯 **과제** : Whatap 단일 의존 + 메트릭 단편화 → Azure 매니지드 서비스(AMW/AMG) 기반 표준 도입, 운영 무중단
 🤹 **역할** : 옵저버빌리티 표준 자발적 제안 및 단독 구축 (Brownfield, 운영 적용 진행중)
 ✅ **성과** :
@@ -104,67 +105,47 @@ _엠로 · 2025. 05. ~ 진행중_
 
 ---
 
-### Caidentia Ubuntu OS 골든이미지 자동화
+### Caidentia 멀티테넌트 SaaS + 단일 엔터프라이즈 SaaS
 _엠로 · 2025. ~ 진행중_
 
-📝 **배경** : OS 골든이미지 빌드가 수동 절차로 운영되어 절차 누락 / 검토 지연 / 감사 추적 부실 위험
-🎯 **과제** : CAI-SO-01 통제 만족 + 빌드 코드화 + 클라우드서비스보안파트 수동 승인 게이트 유지 (불변 이미지 정책)
-🤹 **역할** : 자동화 설계 및 구현 (단독)
-✅ **성과** :
-- SSI 체크리스트(AC01~AC06) ↔ Ansible task 감사 트레이서빌리티 100%
-- Molecule 기반 Role 단위 테스트 도입
-- **GitLab CI (lint + Molecule) + Jenkins (Packer 빌드 / Compute Gallery 게시 / 보안 승인 / smoke-test)** 분담
-- KR(koreacentral) → US(eastus) 비동기 스냅샷 복제 + 멀티 리전 Image Version 자동 생성
-- 야간 드리프트 점검 Jenkinsfile (Continuous Evaluation)
-- WSL 불가 환경 대응 Azure Control VM 셋업 가이드 + INCIDENTS / IMAGE-CAPTURE / SSI-mapping / Versioning 문서
-
-🔨 **기술** : Packer, Ansible (+ Molecule), Jenkins (shared library), GitLab CI, Azure Compute Gallery, Azure Managed Identity, Ubuntu, SSI
-
----
-
-### Caidentia 멀티테넌트 SaaS + AI 플랫폼 아키텍처 재설계
-_엠로 · 2025. ~ 진행중_
-
-📝 **배경** : 3-Tier Shared 구조 (DB/Search/Storage 공유, Demo/POC/Prod 혼재, GPU RI 2대 미활용, CI/CD 없음)
-🎯 **과제** : SOC 2 Type II / ISO 27001 인증 기준 충족 + 매몰비용 (GPU RI) 보존 + 테넌트 격리
+📝 **배경** : 3-Tier 구조 (DB/Storage 공유, Demo/POC/Prod 혼재)
+🎯 **과제** : SOC 2 Type II / ISO 27001 인증 기준 충족 + 테넌트 격리
 🤹 **역할** : 아키텍처 설계 및 의사결정 문서화 (팀 협업)
 
 🏗️ **서비스 아키텍처 설계 구성** :
-- **네트워크 토폴로지** — Hub & Spoke 기반으로 환경별 Spoke(Prod / STG / Demo) 분리, Hub 에 공용 보안/게이트웨이 집약. 외부 진입은 AFD → AGW 2단 계층, 내부 통신은 Private Endpoint + Private DNS 로 폐쇄.
-- **트래픽 / 테넌트 라우팅** — AGW Host/Path 라우팅으로 테넌트별 도메인 분기 (`shared.kdnc.com` 패턴), 테넌트 식별 → 백엔드 풀 매핑.
-- **워크로드 계층** — AKS(애플리케이션) + VMSS(GPU/모델 서빙) 혼합 구성, Managed Identity + RBAC 기반 최소 권한, Flyway 로 스키마 버전 관리.
+- **네트워크 토폴로지** — Hub & Spoke 기반으로 환경별 Spoke(Prod / STG) 분리, Hub 에 공용 보안/게이트웨이 집약. 외부 진입은 AFD → AGW 2단 계층, 내부 통신은 Private Endpoint + Private DNS 로 폐쇄.
+- **트래픽 / 테넌트 라우팅** — AGW Host/Path 라우팅으로 테넌트별 도메인 분기, 테넌트 식별 → 백엔드 풀 매핑.
+- **워크로드 계층** — AKS(MSA) 워크로드 구성, 3Tier VMSS 구성, Managed Identity + RBAC 기반 최소 권한 관리.
 
 🧩 **Shared 서비스 아키텍처 구성** :
-- 테넌트 공통 기능을 **Shared Tier** 로 분리 — 공용 RDB(스키마/Row 단위 격리), 공용 Search, 공용 Object Storage, 공용 AI Gateway 를 단일 계층으로 표준화.
-- 테넌트별 **데이터 격리 경계** 정의 (공유 자원에서 테넌트 키 기반 논리 격리 → 단계적 물리 격리 전환 경로 설계).
-- Shared 자원은 Hub/공용 Spoke 에 배치하고 각 환경 Spoke 가 Private Endpoint 로 접근, 공용 컴포넌트의 단일 장애점(SPOF) 및 카디널리티 영향 검토.
+- **Shared Tier 분리** — 테넌트 공통 기능(공용 RDB · Search · Object Storage · AI Gateway)을 단일 공유 계층으로 표준화.
+- **테넌트 데이터 격리 경계** — 공유 자원 내 테넌트 키 기반 논리 격리에서 출발 → 단계적 물리 격리 전환 경로 설계.
+- **배치 · 리스크 검토** — Shared 자원은 Hub/공용 Spoke 에 배치(Private Endpoint 접근), 공용 컴포넌트의 SPOF · 카디널리티 영향 사전 검토.
 
 ✅ **성과** :
-- 12개 Gap 식별 및 우선순위 매핑
-- Hub & Spoke + Shared Tier 분리 기반의 To-Be 아키텍처 설계 문서화
-- AGW Host/Path 라우팅 멀티테넌트 도메인 라우팅 설계 (`shared.kdnc.com` 패턴)
-- AI 공용 API Gateway + Self-hosted 모델 서빙으로 **GPU RI 2대 흡수** (매몰비용 회피)
-- Compliance Architecture Plan (SOC 2 / ISO 27001) 매핑
-- Azure OpenAI Architecture Report (Private Endpoint + 사내 방화벽 + 토큰 풀 / 캐시 설계)
+- **현행 분석** — 기존 구조 Gap 12건 식별 및 우선순위 매핑
+- **To-Be 아키텍처 문서화** — Hub & Spoke + Shared Tier 분리 기반 목표 아키텍처 설계서
+- **멀티테넌트 라우팅 설계** — AGW Host/Path 기반 테넌트별 도메인 분기
+- **컴플라이언스 매핑** — SOC 2 / ISO 27001 기준 Compliance Architecture Plan
 
-🔨 **기술** : Azure AGW, AFD, AKS / VMSS, Private Endpoint, MI, Azure OpenAI, RBAC, Flyway, Jenkins, Hub & Spoke
+🔨 **기술** : Azure AGW, AFD, AKS / VMSS, Private Endpoint, MI, Azure OpenAI, RBAC, Jenkins, Hub & Spoke
 
 ---
 
 ### Caidentia DR(재해복구) Zone 설계 및 Warm Standby 구성
-_엠로 · 2025. ~ 진행중_
+_엠로 · 2025.08 ~ 2025.10_
 
 📝 **배경** : Caidentia 운영 환경의 리전 단위 재해(Region Outage)에 대비한 DR Zone 부재 → 핵심 자원(DB / Storage) 복구 체계 필요
 🎯 **과제** : **RTO 15분 / RPO 1시간** 충족 + DR 상시 유지 비용 최소화(Warm Standby) + Azure 관리형 Failover 의 "사용자 테스트 불가" 한계 우회
-🤹 **역할** : DR 아키텍처 설계 · Terraform 코드화 · DR 훈련 절차 수립 (단독, 가이드 표준화)
+🤹 **역할** : DR 아키텍처 설계 · Terraform 코드화 · DR 훈련 절차 및 DR 훈련 시행 (가이드 표준화)
 ✅ **성과** :
 - **비용 계층화 Warm Standby 설계** — 상시 유지(거의 무과금: VNet / Subnet / NAT Gateway) vs 재해 시 Terraform 수동 생성(AGW / LB / Redis / VM) 으로 자원 분리
 - **PostgreSQL Flexible 읽기 복제본 + Virtual Endpoint** — Pair Region 비의존 복제, Failover 시 Endpoint 변경 무중단(Primary 자동 중계) (RTO 7초 / RPO 20분)
-- **RA-GRS(읽기 전용 지역 중복) Blob Storage** — Pair Region 자동 복제, Failover 시 Primary Endpoint 자동 중계 (RTO 15분 / RPO 20분)
+- **RA-GRS(읽기 전용 지역 중복) Blob Storage** — Pair Region 자동 복제, Failover 시 Primary Endpoint 메뉴얼 승격 (RTO 15분 / RPO 20분)
 - **DR 훈련 절차 표준화** — 관리형 Failover(Key Vault 등) 테스트 불가 한계를 "Failover 발생 가정 + Pair Region 사전 구성"으로 우회, Staging-Primary 훈련 시 Storage 읽기 복제본 추가 구성 가이드
 - **Caidentia DR Terraform 구성 코드** — 재해 시 생성 자원(AGW / LB / Redis / VM) 코드화로 복구 재현성 확보
 
-🔨 **기술** : Azure (East US ↔ West US Region Pair, Failover), PostgreSQL Flexible Server (Virtual Endpoint, Read Replica), RA-GRS Blob Storage, Azure Key Vault, Application Gateway, Load Balancer, Redis, Terraform
+🔨 **기술** : Azure (East US ↔ West US Region Pair, Failover), PostgreSQL Flexible Server (Virtual Endpoint, Read Replica), RA-GRS Blob Storage, Terraform
 
 ---
 
