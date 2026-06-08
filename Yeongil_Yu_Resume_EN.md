@@ -1,29 +1,29 @@
 # Yeongil Yu
 
-**Senior Cloud Architect | SRE | DevOps Engineer**
+**Senior Cloud Architect · SRE · DevOps Engineer**
 
 📧 yeongil6012@gmail.com &nbsp;·&nbsp; 📱 +82-10-2669-6014 &nbsp;·&nbsp; 📍 Seoul, South Korea
 
-LinkedIn: _[TBD — update English profile]_ &nbsp;·&nbsp; GitHub: _[TBD]_
+LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 
 ---
 
 ## Summary
 
-Cloud Infrastructure, DevOps, and SRE engineer with 8+ years spanning automotive software QA, multi-OEM CI/CD platforms, Azure AKS operations, Landing Zone architecture, and Brownfield observability standardization. Currently establishing the SRE and observability standard for the Caidentia SaaS platform at emro. Kubernetes-certified across **KCNA / CKA / CKAD / CKS** and a **Microsoft Azure Solutions Architect Expert**. Actively expanding into AI infrastructure and multi-cloud platform engineering.
+8-year Cloud Infrastructure / DevOps / SRE engineer. Expanded across **QA → SCM, CI/CD → Cloud Architect → SRE/Observability**, leading AKS operations, Landing Zone design, **Brownfield observability (Prometheus / Grafana / Alloy + OTel) standardization**, Packer + Ansible OS golden image automation, and multi-tenant SaaS redesign on Azure. Holds **KCNA · CKS · CKAD · CKA + Azure Solutions Architect Expert**. Currently expanding into AI infrastructure and multi-cloud platform engineering.
 
 ---
 
-## Core Skills
+## Core Skills / Tech Stack
 
 | Domain | Stack |
 |--------|-------|
 | **Cloud** | Azure (Expert), NCP, AWS / GCP |
 | **Containers** | Kubernetes (AKS, EKS, OpenShift), Docker, Helm |
-| **IaC** | Terraform, Packer, Ansible (+ Molecule), ARM / Bicep |
+| **IaC** | Terraform, Packer, Ansible (+ Molecule), ARM |
 | **CI / CD** | Jenkins (shared library), GitLab CI, Azure DevOps, ArgoCD, GitHub Actions |
 | **Observability** | Prometheus, Grafana, Grafana Alloy, OpenTelemetry, Loki, Tempo, Micrometer, JMX Exporter |
-| **SRE Practices** | SLI / SLO, Error Budget Burn-Rate alerting, RED + USE, Brownfield phased rollout, Runbook standardization, Incident postmortem, DR / BCP (Warm Standby, RTO / RPO, Region Failover) |
+| **SRE Practices** | SLI / SLO, Error Budget Burn-Rate, RED + USE, Brownfield phased rollout, Runbook standardization, Incident postmortem, DR / BCP (Warm Standby, RTO / RPO, Region Failover) |
 | **Languages** | PowerShell · Bash (hands-on automation) · Java / Spring (operated / instrumented) · TypeScript / Node.js · Python (AI-assisted development) |
 | **AI Tooling** | Claude Code |
 
@@ -31,67 +31,200 @@ Cloud Infrastructure, DevOps, and SRE engineer with 8+ years spanning automotive
 
 ## Professional Experience
 
-### emro Co., Ltd. &nbsp;·&nbsp; _May 2025 – Present_
+### 01. emro Co., Ltd. &nbsp;·&nbsp; _May 2025 – Present_
 
 **Senior Cloud Architect, Cloud Architecture Part**
 
-Establishing the SRE and observability standard for the Caidentia SaaS platform on Azure AKS. Primarily a single contributor across the initiatives below (multi-tenant redesign in team collaboration).
+Built the Azure environment for the Caidentia SaaS platform and designed/implemented its architecture & governance per Best Practice (CAF / WAF). Subsequently drove architecture & operational maturity (multi-tenant redesign, observability standard, OS automation).
 
-- Authored the **Caidentia AKS Observability Master Plan** (5-tier dashboard hierarchy, SLI / SLO / Error Budget Burn-Rate alerting, RED + USE, cardinality rules) — a **self-initiated standard** — and have been rolling it out **Phase 0–4 in a Brownfield environment with zero operational downtime** (rollout in progress).
-- Designed dual instrumentation tracks for **Spring Boot** (Micrometer + OpenTelemetry) and **Legacy Spring MVC on Tomcat** (PrometheusMeterRegistry + JMX Exporter sidecar), unifying both behind a single **Grafana Alloy DaemonSet** emitting to Azure Managed Prometheus, Loki, and Tempo.
-- Codified the observability infrastructure with **Terraform** (Brownfield import of Azure Managed Grafana + Monitor Workspace, AAD / RBAC, Alloy, kube-state-metrics, node-exporter); standardized **11 runbooks** tied to all critical alerts (HikariCPPending, TomcatThreadSaturation, LogbackErrorStorm, SSEEmitterLeak, SLOBurnRateFast, etc.).
-- Built the **Caidentia OS golden image automation** (Packer + Ansible + Jenkins) implementing the CAI-SO-01 security control. Mapped the Samsung Security Index (AC01–AC06) to Ansible roles with full audit traceability, added Molecule unit tests, and split GitLab CI (lint + Molecule) from Jenkins (Packer build, Compute Gallery publish, security approval gate, smoke test). Designed asynchronous **KR → US snapshot replication** for multi-region image versioning and a nightly drift-check job for continuous evaluation.
-- Redesigned the **Caidentia multi-tenant SaaS architecture** (3-tier shared → tenant-isolated) targeting **SOC 2 Type II and ISO 27001** compliance (To-Be design, team collaboration). Designed Hub & Spoke environment separation, AGW host/path-based tenant routing, an AI shared API gateway absorbing the pre-committed GPU RI (×2, 3-year) into self-hosted model serving, and RBAC + Managed Identity authentication.
-- Designed the **Caidentia DR (Disaster Recovery) Zone** as a cost-tiered **Warm Standby** in the paired region (East US ↔ West US) targeting **RTO 15 min / RPO 1 hr**. Kept near-zero-cost network primitives (VNet / Subnet / NAT Gateway) always-on while codifying disaster-time resources (AGW / LB / Redis / VM) in **Terraform**. Used **PostgreSQL Flexible Server read replicas + Virtual Endpoint** for failover-transparent endpoints (RTO 7 s / RPO 20 min) and **RA-GRS Blob Storage** for cross-region replication, and standardized a **DR drill procedure** working around Azure managed-failover's non-testability (Key Vault, etc.).
-- Authored **8+ AI infrastructure operations guides** for Azure OpenAI / Self-hosted LLM workloads — SSE streaming timeouts across AGW, AFD ↔ AGW X-Forwarded header redirect loops, Azure Files SMB `mfsymlinks` mounting, NSG Deny-All impact analysis, and more. Converted recurring incidents into reusable institutional knowledge.
+**Architecture / Governance (primary)**
 
----
+- **Caidentia Azure SaaS platform build** — Best Practice (CAF / WAF) Landing Zone · Hub & Spoke topology, Management Group / subscription separation, per-environment boundaries (Prod / STG / Demo), Terraform-based IaC standardization.
+- **Azure governance framework** — Azure Policy (deny / audit) · naming · tagging standards, RBAC delegation · least privilege · PIM (Just-in-Time) · Managed Identity, Defender for Cloud · NSG / firewall · Private Endpoint security baseline, cost governance (FinOps) · budget alerts.
+- **Multi-tenant SaaS architecture redesign (To-Be design lead, team collaboration)** (3-Tier Shared → tenant isolation), Hub & Spoke + AFD + AGW domain routing, **shared service tier (common DB / Search / Storage / AI Gateway) standardization**.
 
-### Cloocus Inc. &nbsp;·&nbsp; _May 2022 – Apr 2025_
+**Architecture / Operational Maturity**
 
-**Manager, Managed Services Center**
-
-Customer-facing Azure platform engineer delivering cloud-native solutions across enterprise customers in Korea.
-
-- **Korea Marine Transport Co. (KMTC)** — Operated Azure infrastructure and AKS clusters; owned DevOps CI/CD pipelines on Azure DevOps. Executed a **zero-downtime AKS cluster version upgrade (1.20 → 1.28.9)** via Blue/Green rollout and migrated an open-source CI/CD stack (Jenkins + ArgoCD) onto Azure DevOps, consolidating the management surface on the Azure platform.
-- **Krafton** — Designed and validated an AKS-based RedisJson PoC against PaaS Redis (cost / performance / technical limits). Provisioned **1,000 RedisJson instance Pods** using Terraform + Helm to verify horizontal capacity for an upcoming game-server workload.
-- **Handok** — Migrated legacy SAP to Azure and built an Azure Landing Zone (Hub & Spoke) preparing the customer for next-generation initiatives. Delivered with Helm, AKS, and GitHub Actions–based deployment.
-- **Sungju DND** (Singapore region) — Built a global Azure Landing Zone in `southeastasia` for a CRM SaaS deployment with Hub & Spoke topology, Azure Firewall + Private Endpoint security baseline, and ELK-based unified logging.
+- **Caidentia AKS observability standard** — 5-tier dashboard structure, SLI/SLO + Error Budget Burn-Rate alerting, cardinality rules.
+- **Spring Boot + Legacy Spring MVC/Tomcat unified instrumentation track** — converging Micrometer + OpenTelemetry + PrometheusMeterRegistry + JMX Exporter sidecar into a single **Grafana Alloy DaemonSet** emitting to Azure Managed Prometheus / Loki / Tempo. (Terraform Brownfield import, **11 runbooks** included)
+- **Caidentia OS golden image automation** (Packer + Ansible + Jenkins, CAI-SO-01 control) — SSI (AC01–AC06) ↔ Ansible role audit mapping, Molecule unit tests, **GitLab CI (lint) + Jenkins (build/publish/approve) split**, async KR→US replication, nightly drift check.
 
 ---
 
-### Gunwoo Solutions &nbsp;·&nbsp; _Oct 2018 – Feb 2020_
+### 02. Cloocus Inc. &nbsp;·&nbsp; _May 2022 – Apr 2025_
 
-**Associate Research Engineer, Infrastructure Team**
+**Manager / Managed Services Center**
 
-- **Hyundai 5th-generation Wide AVN** — Owned software configuration management and build automation for AVN units across **31 Hyundai / Kia vehicle models**.
-- **Vlink-system** — Built a unified CI/CD platform that consolidated per-OEM build environments into a single scenario- and action-driven CLI interface using Jenkins + Gerrit + Docker + Node.js.
+- **Korea Marine Transport Co. (KMTC)** — Operated Azure infrastructure and AKS clusters / Azure DevOps CI/CD pipelines. Executed a **zero-downtime AKS 1.20 → 1.28.9 Blue/Green upgrade**, and migrated an open-source CI/CD stack (Jenkins + ArgoCD) onto Azure DevOps, consolidating the management surface.
+- **Krafton** — AKS-based RedisJson PoC. Validated technology/performance/limits/cost against PaaS Redis, deploying **1,000 RedisJson instance Pods** (Terraform + Helm).
+- **Handok** — Legacy SAP Azure migration + Azure Landing Zone (Hub & Spoke). Helm / AKS / GitHub Actions.
+- **Sungju DND (Singapore region)** — Azure Landing Zone for a global CRM SaaS deployment. Hub & Spoke, Azure Firewall + Private Endpoint security baseline, ELK unified logging.
 
 ---
 
-### Qspot &nbsp;·&nbsp; _Jul 2015 – Jul 2018_
+### 03. Gunwoo Solutions &nbsp;·&nbsp; _Oct 2018 – Feb 2020_
 
-**Associate Research Engineer, QA Team**
+**Associate Research Engineer / Infrastructure Team**
 
-Automotive telematics SW verification for global OEMs.
+- **Hyundai 5th-generation Wide AVN project** — Maintained SW configuration management and build automation scripts for AVN units across **31 Hyundai / Kia vehicle models**.
+- **Vlink-system project** — Consolidated per-OEM CI/CD environments. Developed a scenario/action-tailored build system + CLI-based build automation interface (Jenkins + Gerrit + Docker + Node.js).
+
+---
+
+### 04. Qspot &nbsp;·&nbsp; _Jul 2015 – Jul 2018_
+
+**Associate Research Engineer / QA Team**
+
+Automotive telematics SW verification.
 
 - **Hyundai Genesis Telematics** (6th-gen premium)
 - **Volkswagen OCU Telematics** (Golf)
-- **GM Cadillac CTS Telematics** — including overseas field verification. Authored test plans via design-based techniques and continuously improved the release process.
+- **GM Cadillac CTS Telematics** — including overseas field verification. Authored and executed SW test plans via design-based techniques, continuously improving the release process.
 
 ---
 
-## Additional Projects
+## Selected Projects
 
-### OpenShift Container Platform on Air-Gapped Infrastructure
-_KRRA Cloud Service Specialist Track &nbsp;·&nbsp; Jul 2021 – Oct 2021_
+### Caidentia AKS Observability Standard & Phased Rollout
+_emro · May 2025 – Present (in progress)_
 
-Built an OpenShift Container Platform PaaS on physical servers in a closed-network (air-gapped) environment. Integrated Prometheus, Grafana, HAProxy for observability and ingress on CentOS / CoreOS. **Directly relevant to on-prem AI workload deployment patterns.**
+📝 **Background** : Re-framed past TPS-drop incidents (HikariCP exhaustion / Logback synchronous I/O / SSE leak / Tomcat thread saturation) into an integrated observability system enabling "RCA within 2 minutes from dashboards alone"
+🎯 **Challenge** : Single Whatap dependency + metric fragmentation → adopt an Azure managed-service (AMW/AMG) standard, zero operational downtime
+🤹 **Role** : Self-initiated proposal and sole builder of the observability standard (Brownfield, rollout in progress)
+✅ **Outcomes** :
+- Master Plan (Four Golden Signals / RED+USE / SLI-SLO / Error Budget Burn-Rate / cardinality rules) standardized into a single document
+- Phase 0 Terraform Brownfield import (AMG + Monitor Workspace + AAD/RBAC + Alloy DaemonSet)
+- Phase 1 simultaneous instrumentation standard for Spring Boot + Legacy Spring MVC
+- Phase 2 5-tier dashboards as JSON-as-Code → **dashboard applied to a new service within 30 minutes**
+- Phase 3 Symptom-vs-Cause alerts + Notification Policy + 11 runbooks
+- Phase 4 Loki + Tempo on AKS + Azure Blob design + OTel Java Agent + Tail Sampling
+- **11 cumulative pitfall retrospectives** documented from operations
+
+🔨 **Tech** : Azure AKS, Azure Managed Prometheus / Grafana, Grafana Alloy, Loki, Tempo, OpenTelemetry, Micrometer, JMX Exporter, Terraform, Spring 6, Slack + Azure Logic App
+
+---
+
+### Caidentia Ubuntu OS Golden Image Automation
+_emro · 2025 – Present (in progress)_
+
+📝 **Background** : OS golden image builds ran as manual procedures, risking skipped steps / review delays / weak audit trails
+🎯 **Challenge** : Satisfy the CAI-SO-01 control + codify the build + retain the Cloud Security Part's manual approval gate (immutable image policy)
+🤹 **Role** : Automation design and implementation (sole)
+✅ **Outcomes** :
+- 100% audit traceability between SSI checklist (AC01–AC06) ↔ Ansible tasks
+- Introduced Molecule-based role unit testing
+- **GitLab CI (lint + Molecule) + Jenkins (Packer build / Compute Gallery publish / security approval / smoke-test)** split
+- KR (koreacentral) → US (eastus) async snapshot replication + automatic multi-region Image Version creation
+- Nightly drift-check Jenkinsfile (Continuous Evaluation)
+- Azure Control VM setup guide for WSL-unavailable environments + INCIDENTS / IMAGE-CAPTURE / SSI-mapping / Versioning docs
+
+🔨 **Tech** : Packer, Ansible (+ Molecule), Jenkins (shared library), GitLab CI, Azure Compute Gallery, Azure Managed Identity, Ubuntu, SSI
+
+---
+
+### Caidentia Multi-tenant SaaS + AI Platform Architecture Redesign
+_emro · 2025 – Present (in progress)_
+
+📝 **Background** : 3-Tier Shared structure (shared DB/Search/Storage, mixed Demo/POC/Prod, 2 idle GPU RIs, no CI/CD)
+🎯 **Challenge** : Meet SOC 2 Type II / ISO 27001 certification criteria + preserve sunk cost (GPU RI) + tenant isolation
+🤹 **Role** : Architecture design and decision documentation (team collaboration)
+
+🏗️ **Service architecture design** :
+- **Network topology** — Hub & Spoke with per-environment Spokes (Prod / STG / Demo) separated, shared security/gateway consolidated in the Hub. External ingress via AFD → AGW two-tier, internal traffic closed via Private Endpoint + Private DNS.
+- **Traffic / tenant routing** — AGW Host/Path routing for per-tenant domain branching (`shared.kdnc.com` pattern), tenant identification → backend pool mapping.
+- **Workload tier** — AKS (application) + VMSS (GPU/model serving) hybrid, Managed Identity + RBAC least privilege, Flyway schema versioning.
+
+🧩 **Shared service architecture** :
+- Separated common tenant features into a **Shared Tier** — common RDB (schema/row-level isolation), common Search, common Object Storage, common AI Gateway standardized into a single tier.
+- Defined per-tenant **data isolation boundaries** (logical isolation via tenant key on shared resources → staged migration path to physical isolation).
+- Placed shared resources in the Hub/common Spoke, each environment Spoke accessing via Private Endpoint; reviewed single point of failure (SPOF) and cardinality impact of common components.
+
+✅ **Outcomes** :
+- 12 gaps identified and priority-mapped
+- To-Be architecture documented on Hub & Spoke + Shared Tier separation
+- AGW Host/Path multi-tenant domain routing design (`shared.kdnc.com` pattern)
+- **Absorbed 2 GPU RIs** via common AI API Gateway + self-hosted model serving (avoiding sunk cost)
+- Compliance Architecture Plan (SOC 2 / ISO 27001) mapping
+- Azure OpenAI Architecture Report (Private Endpoint + internal firewall + token pool / cache design)
+
+🔨 **Tech** : Azure AGW, AFD, AKS / VMSS, Private Endpoint, MI, Azure OpenAI, RBAC, Flyway, Jenkins, Hub & Spoke
+
+---
+
+### Caidentia DR (Disaster Recovery) Zone Design & Warm Standby
+_emro · 2025 – Present (in progress)_
+
+📝 **Background** : No DR Zone for region-level outage in the Caidentia operational environment → a recovery scheme for core resources (DB / Storage) was needed
+🎯 **Challenge** : Meet **RTO 15 min / RPO 1 hr** + minimize DR always-on cost (Warm Standby) + work around Azure managed Failover's "not user-testable" limitation
+🤹 **Role** : DR architecture design · Terraform codification · DR drill procedure (sole, guide standardization)
+✅ **Outcomes** :
+- **Cost-tiered Warm Standby design** — always-on (near-zero cost: VNet / Subnet / NAT Gateway) vs disaster-time Terraform manual provisioning (AGW / LB / Redis / VM)
+- **PostgreSQL Flexible read replica + Virtual Endpoint** — pair-region-independent replication, failover-transparent endpoints (Primary auto-relay) (RTO 7 s / RPO 20 min)
+- **RA-GRS (read-access geo-redundant) Blob Storage** — pair-region auto replication, Primary Endpoint auto-relay on failover (RTO 15 min / RPO 20 min)
+- **DR drill procedure standardization** — worked around managed Failover (Key Vault, etc.) non-testability via "assume failover occurred + pre-provision in pair region," with a guide for adding a Storage read replica when the training Primary is Staging
+- **Caidentia DR Terraform code** — codified disaster-time resources (AGW / LB / Redis / VM) for reproducible recovery
+
+🔨 **Tech** : Azure (East US ↔ West US Region Pair, Failover), PostgreSQL Flexible Server (Virtual Endpoint, Read Replica), RA-GRS Blob Storage, Azure Key Vault, Application Gateway, Load Balancer, Redis, Terraform
+
+---
+
+### KMTC AKS Cluster Zero-Downtime Upgrade & CI/CD Consolidation
+_Cloocus · Jun 2024 – Aug 2024_
+
+📝 **Background** : AKS cluster EOL → zero-downtime version upgrade and redeploy needed (1.20 → 1.28.9)
+🤹 **Role** : PM, implementation
+✅ **Outcomes** :
+- New AKS cluster Blue/Green deployment (downtime 0)
+- Open-source CI/CD (Jenkins + ArgoCD) → Azure DevOps migration
+- Management surface consolidated on the Azure platform
+
+🔨 **Tech** : Azure, Kubernetes, Azure DevOps CI/CD, Jenkins, ArgoCD, Maven, Spring Boot, Docker
+
+---
+
+### Krafton AKS for RedisJson PoC
+_Cloocus · Jun 2022 – Jul 2022_
+
+📝 **Background** : Compare AKS-based RedisJson against PaaS Redis (technology/performance/limits/cost)
+🤹 **Role** : Team member, implementation
+✅ **Outcomes** : **Deployed 1,000 RedisJson instance Pods**, validated horizontal scaling for future game-server workloads
+🔨 **Tech** : Azure cloud, AKS, Helm, PowerShell, GitHub Actions, Terraform
+
+---
+
+### Handok / Sungju DND Azure Landing Zone
+_Cloocus · Jan 2023 – Oct 2023_
+
+- **Handok** : Legacy SAP migration + Landing Zone (Hub & Spoke) for next-generation projects
+- **Sungju DND** : Landing Zone for a global CRM SaaS deployment in the Singapore region (Hub & Spoke + Azure Firewall + Private Endpoint + ELK)
+
+🔨 **Tech** : Azure (AGW, AKS, Hub & Spoke, Firewall, Private Endpoint), Helm, ELK, PowerShell, GitHub Actions
+
+---
+
+### OpenShift Container Platform (PaaS) on Air-Gapped Infrastructure
+_KRRA / Cloud Service Development Specialist Track · Jul 2021 – Oct 2021_
+
+📝 **Background** : Build an OpenShift Container Platform PaaS in an air-gapped (physical server) environment
+✅ **Takeaway** : **A directly reusable asset for on-prem AI workload deployment patterns**
+
+🔨 **Tech** : Git, CentOS, CoreOS, OpenShift, ESXi Host, Prometheus, Grafana, HAProxy
+
+---
 
 ### VMware Private Cloud (mini-project)
-_KRRA Cloud Service Specialist Track &nbsp;·&nbsp; Apr 2021 – Jun 2021_
+_KRRA / Cloud Service Development Specialist Track · Apr 2021 – Jun 2021_
 
-Built a VMware vSphere private cloud against a customer scenario — vCenter, three ESXi hosts running four virtualized servers with vMotion, DRS, HA, and P2V migration.
+Built a VMware vSphere private cloud against a virtual customer scenario — vCenter, 3 ESXi hosts, 4 virtual servers, vMotion / DRS / HA / P2V migration.
+
+---
+
+### Vlink-system (Multi-OEM CI/CD Integration)
+_Gunwoo Solutions · Jul 2019 – Jan 2020_
+
+Consolidated per-OEM CI/CD environments into a single system. Scenario/action-level build granularity + CLI-based build automation interface.
+
+🔨 **Tech** : Git, Gerrit, Jenkins, Jira, Collab, Docker, Node.js
 
 ---
 
@@ -115,7 +248,7 @@ Built a VMware vSphere private cloud against a customer scenario — vCenter, th
 **Joongbu University** &nbsp;·&nbsp; _Mar 2008 – Feb 2015_
 B.S. in Game Science
 
-**Korea Radio Promotion Association (KRRA)**
+**Korea Radio Promotion Association (KRRA)** — private training
 - Kubernetes-based MSA Development Track &nbsp;·&nbsp; _Nov 2021 – Dec 2021_
 - Cloud Service Development Specialist Track &nbsp;·&nbsp; _Apr 2021 – Oct 2021_
 
@@ -127,3 +260,15 @@ B.S. in Game Science
 |----------|-------------|
 | Korean | Native |
 | English | Reading / Writing workable (AI-assisted), Speaking basic |
+
+---
+
+## About
+
+I am an 8-year engineer who has expanded from **SW verification (QA) → CI/CD automation → Cloud Infrastructure → SRE/Observability**. From automotive telematics SW verification (GM/VW/Hyundai) → multi-OEM CI/CD integration on Jenkins/Gerrit/Docker → Azure AKS operations / Landing Zone design → currently establishing the observability standard in a Brownfield environment.
+
+At **emro's Cloud Architecture Part**, I am establishing the SRE standard for the Caidentia operational environment from the ground up. Key deliverables include (1) an integrated observability standard for Spring Boot + Legacy Spring MVC on Azure AKS (Master Plan + Phase 0–4) and 11 runbooks, (2) Packer + Ansible + Jenkins Ubuntu OS golden image automation (CAI-SO-01 control, SSI AC01–AC06 auto-mapping, nightly drift check), (3) a 3-Tier Shared → multi-tenant SaaS redesign (SOC 2 / ISO 27001, shared service tier standardization, AGW domain routing, GPU RI absorption design), and (4) a Caidentia DR Zone design (Warm Standby, PostgreSQL Virtual Endpoint + RA-GRS, RTO 15 min / RPO 1 hr, Terraform codification).
+
+In earlier roles at **Cloocus (May 2022 – Apr 2025)**, I handled the KMTC AKS zero-downtime version upgrade (1.20→1.28.9 Blue/Green), the Handok · Sungju DND Azure Landing Zone builds, and the Krafton AKS-based RedisJson 1000-Pod PoC.
+
+My operating philosophy is **"phase exit criteria + cumulative pitfall retrospectives."** I believe that breaking every change into small units and always feeding pitfalls learned from failures into the next phase is what determines resilience in a Brownfield environment. **My future direction is AI infrastructure and multi-cloud (AWS/GCP) platform engineering — contributing deeply to observability, automation, and multi-deployment models (cloud / private cloud / on-prem) for large-scale AI workloads.**
