@@ -215,7 +215,7 @@ _건우솔루션 · 2019. 07. ~ 2020. 01._
 | Kubernetes and Cloud Native Associate (**KCNA**) | 2026. 01. | The Linux Foundation |
 | Certified Kubernetes Security Specialist (**CKS**) | 2024. 03. | The Linux Foundation |
 | Certified Kubernetes Application Developer (**CKAD**) | 2024. 02. | The Linux Foundation |
-| Certified Kubernetes Administrator (**CKA**) | 2022. 09. | The Linux Foundation _(갱신 상태 — 확인 필요)_ |
+| Certified Kubernetes Administrator (**CKA**) | 2022. 09. | The Linux Foundation _(2025. 09)_ |
 | Microsoft Certified: **Azure Solutions Architect Expert** (AZ-305) | 2022. 08. | Microsoft |
 | Microsoft Certified: Azure Administrator Associate (AZ-104) | 2022. 08. | Microsoft |
 | NAVER Cloud Platform Certified Associate | 2020. 10. | NAVER Cloud |
@@ -247,7 +247,7 @@ B.S. 게임학과 (학사 졸업)
 
 저는 **SW 검증(QA) → CI/CD 자동화 → Cloud Infrastructure → SRE/Observability** 로 영역을 확장해온 **8년차 엔지니어**입니다. 자동차 텔레매틱스 SW 검증(GM/VW/현대) → Jenkins/Gerrit/Docker 기반 멀티 OEM CI/CD 통합 시스템 구축 → Azure AKS 운영 / Landing Zone 설계 → 현재 Brownfield 환경의 옵저버빌리티 표준 수립을 담당하고 있습니다.
 
-**엠로 클라우드아키텍처파트**에서는 Caidentia 운영 환경의 SRE 표준을 정립하고 있습니다. 대표적인 산출물로 (1) Azure AKS 위 Spring Boot + Legacy Spring MVC 통합 옵저버빌리티 표준(Master Plan + Phase 0~4) 및 런북 11건, (2) SSI(AC01~AC06) 기반 OS 검증·하드닝 자동화 스크립트 운영 적용 + Packer + Ansible 골든이미지 빌드 파이프라인 PoC (CAI-SO-01 통제), (3) 3-Tier Shared → Multi-tenant SaaS 재설계 (SOC2 / ISO 27001 대응, Shared 서비스 계층 표준화, AGW 도메인 라우팅), (4) Caidentia DR(재해복구) Zone 설계 (Warm Standby, PostgreSQL Virtual Endpoint + RA-GRS, RTO 15분 / RPO 1시간, Terraform 코드화) 가 있습니다.
+**엠로 클라우드아키텍처파트**에서는 Caidentia 운영 환경의 SRE 표준을 정립하고 있습니다. 대표적인 산출물로 (1) Azure AKS 위 Spring Boot + Legacy Spring MVC 통합 옵저버빌리티 표준(Master Plan + Phase 0~4) 및 런북 11건, (2) SSI(AC01~AC06) 기반 OS 검증·하드닝 자동화 스크립트 운영 적용 (CAI-SO-01 통제), (3) 3-Tier Shared → Multi-tenant SaaS 재설계 (SOC2 / ISO 27001 대응, Shared 서비스 계층 표준화, AGW 도메인 라우팅), (4) Caidentia DR(재해복구) Zone 설계 (Warm Standby, PostgreSQL Virtual Endpoint + RA-GRS, RTO 15분 / RPO 1시간, Terraform 코드화) 가 있습니다.
 
 이전 경력에서는 **클루커스(2022.05~2025.04)** 에서 고려해운 AKS 무중단 버전 업그레이드(1.20→1.28.9 Blue/Green), 한독 · 성주DND Azure Landing Zone 구축, 크래프톤 AKS 기반 RedisJson 1000-Pod PoC 등을 담당했습니다.
 
