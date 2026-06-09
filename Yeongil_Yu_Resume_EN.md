@@ -48,7 +48,7 @@ Built the Azure environment for the Caidentia SaaS platform and designed/impleme
 
 - **Caidentia AKS observability standard** — 5-tier dashboard structure, SLI/SLO + Error Budget Burn-Rate alerting.
 - **Spring Boot + Legacy Spring MVC/Tomcat unified instrumentation track** — converging Micrometer + OpenTelemetry + PrometheusMeterRegistry + JMX Exporter sidecar into a single **Grafana Alloy DaemonSet** emitting to Azure Managed Prometheus / Loki / Tempo. (Terraform import, **11 runbooks** included)
-- **Caidentia OS golden image automation** (CAI-SO-01 control) — SSI (AC01–AC06)-based **verification & hardening automation scripts in production**. (The Packer + Ansible golden image build/publish pipeline — Molecule unit tests, **GitLab CI (lint) + Jenkins (build/publish/approve) split**, async KR→US replication, nightly drift-check — is at **PoC** stage.)
+- **Caidentia OS golden image automation** (CAI-SO-01 control) — SSI (AC01–AC06)-based **verification & hardening automation scripts in production**.
 
 ---
 

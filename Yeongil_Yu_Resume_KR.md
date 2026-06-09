@@ -48,7 +48,7 @@ Caidentia SaaS 플랫폼의 Azure 환경을 구축하고, Best Practice(CAF / WA
 
 - **Caidentia AKS 옵저버빌리티 표준 수립** 5-Tier 대시보드 구조, SLI/SLO + Error Budget Burn-Rate 알림 체계 정의.
 - **Spring Boot + Legacy Spring MVC/Tomcat 통합 계측 트랙** 설계 — Micrometer + OpenTelemetry + PrometheusMeterRegistry + JMX Exporter sidecar 를 **Grafana Alloy DaemonSet 한 곳으로 수렴**해 Azure Managed Prometheus / Loki / Tempo 로 전송. (Terraform import, **런북 11건** 포함)
-- **Caidentia OS 골든이미지 자동화** (CAI-SO-01 통제) — SSI(AC01~AC06) 기반 **검증·하드닝 자동화 스크립트 운영 적용**. (Packer + Ansible 기반 골든이미지 빌드·게시 파이프라인 — Molecule 단위 테스트, **GitLab CI(lint) + Jenkins(빌드/게시/승인) 분담**, KR→US 비동기 복제, 야간 드리프트 점검 — 은 **PoC 단계**)
+- **Caidentia OS 골든이미지 자동화** (CAI-SO-01 통제) — SSI(AC01~AC06) 기반 **검증·하드닝 자동화 스크립트 운영 적용**.
 
 ---
 
