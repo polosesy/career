@@ -42,7 +42,7 @@ Caidentia SaaS 플랫폼의 Azure 환경을 구축하고, Best Practice(CAF / WA
 - **Caidentia Azure SaaS 플랫폼 환경 구축** — Best Practice(CAF / WAF) 기준 Landing Zone · Hub & Spoke 토폴로지 / 구독 분리 구조, 환경별 경계(Prod / STG ), Terraform 기반 IaC 인프라 프로비저닝.
 - **Azure 거버넌스 체계 설계·구축** — Azure Policy(deny / audit) · 네이밍 · 태깅 표준, RBAC 권한 위임 · 최소 권한 · PIM(Just-in-Time) · Managed Identity, Defender for Cloud · NSG / 방화벽 · Private Endpoint 보안 베이스라인.
 - **FinOps 비용 최적화** — 예약·약정 할인(RI / Savings Plan), Rightsizing · SKU 조정, 비운영(Dev / Demo) 환경 스케줄 정지·축소, 미사용 리소스 정리 + 스토리지 / 로그 보존정책 최적화, 예산 알림 체계 → **월 운영비 약 55% 절감 (연환산 약 1.3억원 규모, 8개월간 지속 우하향)**.
-- **멀티테넌트 SaaS 아키텍처 재설계 (To-Be 설계 주도, 팀 협업)** (3-Tier Shared → 테넌트 격리), Hub & Spoke + AFD + AGW 도메인 라우팅, **Shared 서비스 계층(공용 DB / Search / Storage / AI Gateway) 표준화** 설계.
+- **멀티테넌트 SaaS 아키텍처 재설계 (To-Be 설계 주도, 팀 협업)** (3-Tier Shared → 테넌트 격리), Hub & Spoke + AFD + AGW 도메인 라우팅, **Shared 서비스 계층 표준화** 설계.
 
 **아키텍처 / 운영 고도화**
 

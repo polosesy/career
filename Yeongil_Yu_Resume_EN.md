@@ -42,7 +42,7 @@ Built the Azure environment for the Caidentia SaaS platform and designed/impleme
 - **Caidentia Azure SaaS platform build** — Best Practice (CAF / WAF) Landing Zone · Hub & Spoke topology, Management Group / subscription separation, per-environment boundaries (Prod / STG), Terraform-based IaC infrastructure provisioning.
 - **Azure governance framework** — Azure Policy (deny / audit) · naming · tagging standards, RBAC delegation · least privilege · PIM (Just-in-Time) · Managed Identity, Defender for Cloud · NSG / firewall · Private Endpoint security baseline.
 - **FinOps cost optimization** — reservation/commitment discounts (RI / Savings Plan), rightsizing · SKU tuning, scheduled shutdown/scale-down of non-production (Dev / Demo) environments, unused-resource cleanup + storage / log retention optimization, budget alerting → **~55% monthly run-cost reduction (≈ KRW 130M/yr annualized, 8-month sustained downtrend)**.
-- **Multi-tenant SaaS architecture redesign (To-Be design lead, team collaboration)** (3-Tier Shared → tenant isolation), Hub & Spoke + AFD + AGW domain routing, **shared service tier (common DB / Search / Storage / AI Gateway) standardization**.
+- **Multi-tenant SaaS architecture redesign (To-Be design lead, team collaboration)** (3-Tier Shared → tenant isolation), Hub & Spoke + AFD + AGW domain routing, **shared service tier standardization**.
 
 **Architecture / Operational Maturity**
 
