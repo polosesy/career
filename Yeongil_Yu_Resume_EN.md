@@ -10,7 +10,7 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 
 ## Summary
 
-8-year Cloud Infrastructure / DevOps / SRE engineer. Expanded across **QA → SCM, CI/CD → Cloud Architect → SRE/Observability**, leading AKS operations, Landing Zone design, **observability (Prometheus / Grafana / Alloy + OTel) standardization**, SSI-checklist-based OS golden image hardening script automation, and multi-tenant SaaS redesign on Azure. Holds **KCNA · CKS · CKAD · CKA + Azure Solutions Architect Expert**. Currently expanding into AI infrastructure and multi-cloud platform engineering.
+8-year Cloud Infrastructure / DevOps / SRE engineer. Expanded across **QA → SCM, CI/CD → Cloud Architect → SRE/Observability**, leading AKS operations, Landing Zone design, **observability (Prometheus / Grafana / Alloy + OTel) standardization**, SSI-checklist-based OS security hardening/verification script automation, and multi-tenant SaaS redesign on Azure. Holds **KCNA · CKS · CKAD · CKA + Azure Solutions Architect Expert**. Currently expanding into AI infrastructure and multi-cloud platform engineering.
 
 ---
 
@@ -23,7 +23,7 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 | **IaC** | Terraform, ARM |
 | **CI / CD** | Jenkins (shared library), GitLab CI, Azure DevOps, ArgoCD |
 | **Observability** | Prometheus, Grafana, Grafana Alloy, OpenTelemetry, Loki, Tempo, Micrometer, JMX Exporter |
-| **SRE Practices** | SLI / SLO, Error Budget Burn-Rate, RED + USE, Runbook standardization, Incident postmortem, DR / BCP (Warm Standby, RTO / RPO, Region Failover) |
+| **SRE Practices** | SLI / SLO, Error Budget Burn-Rate, RED + USE, Incident postmortem, DR / BCP (Warm Standby, RTO / RPO, Region Failover) |
 | **Languages** | PowerShell · Bash (hands-on automation) · Java / Spring (operated / instrumented) · TypeScript / Node.js · Python (AI-assisted development) |
 | **AI Tooling** | Claude Code |
 
@@ -35,7 +35,7 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 
 **Senior Cloud Architect, Cloud Architecture Part**
 
-Built the Azure environment for the Caidentia SaaS platform and designed/implemented its architecture & governance per Best Practice (CAF / WAF). Subsequently drove architecture & operational maturity (multi-tenant redesign, observability standard, OS automation).
+Built the Azure environment for the Caidentia SaaS platform and designed/implemented its architecture & governance per Best Practice (CAF / WAF). Subsequently drove architecture & operational maturity (multi-tenant redesign, observability standard, OS hardening automation).
 
 **Architecture / Governance (primary)**
 
@@ -48,7 +48,7 @@ Built the Azure environment for the Caidentia SaaS platform and designed/impleme
 
 - **Caidentia AKS observability standard** — 5-tier dashboard structure, SLI/SLO + Error Budget Burn-Rate alerting.
 - **Spring Boot + Legacy Spring MVC/Tomcat unified instrumentation track** — converging Micrometer + OpenTelemetry + PrometheusMeterRegistry + JMX Exporter sidecar into a single **Grafana Alloy DaemonSet** emitting to Azure Managed Prometheus / Loki / Tempo. (Terraform import, **11 runbooks** included)
-- **Caidentia OS golden image automation** (CAI-SO-01 control) — SSI (AC01–AC06)-based **verification & hardening automation scripts in production**.
+- **Caidentia OS security hardening/verification automation** (CAI-SO-01 control) — SSI (AC01–AC06)-based **verification & hardening automation scripts in production**.
 
 ---
 
@@ -91,9 +91,9 @@ _emro · Apr 2026 – Present (in progress)_
 
 📝 **Background** : Caidentia's operational environment relied on a single APM (Whatap) with fragmented metrics, making it hard to define SLI/SLO and perform consistent root-cause analysis (RCA) across mixed Spring Boot + Legacy Spring MVC workloads — no standardized observability system.
 🎯 **Challenge** : Single Whatap dependency + metric fragmentation → adopt an Azure managed-service (AMW/AMG) standard, zero operational downtime
-🤹 **Role** : Self-initiated proposal and sole builder of the observability standard (Brownfield, rollout in progress)
+🤹 **Role** : Self-initiated proposal and sole builder of the observability standard (pilot in progress)
 ✅ **Outcomes** :
-- Master Plan (Four Golden Signals / RED+USE / SLI-SLO / Error Budget Burn-Rate / cardinality rules) standardized into a single document
+- Master Plan (Four Golden Signals / RED+USE / SLI-SLO / Error Budget Burn-Rate) standardized into a single document
 - Phase 0 Terraform Brownfield import (AMG + Monitor Workspace + AAD/RBAC + Alloy DaemonSet)
 - Phase 1 simultaneous instrumentation standard for Spring Boot + Legacy Spring MVC
 - Phase 2 5-tier dashboards as JSON-as-Code → **dashboard applied to a new service within 30 minutes**
@@ -104,7 +104,7 @@ _emro · Apr 2026 – Present (in progress)_
 
 ---
 
-### Caidentia Multi-tenant SaaS + Single-tenant Enterprise SaaS
+### Caidentia Multi-tenant SaaS + Single-tenant Enterprise SaaS Architecture Redesign
 _emro · 2025 – Present (in progress)_
 
 📝 **Background** : 3-Tier structure (a single VNET per environment, some governance not yet established)
@@ -118,16 +118,16 @@ _emro · 2025 – Present (in progress)_
 
 🧩 **Shared service architecture** :
 - **Shared Tier separation** — common tenant functions (DB access control, Bastion, VPN Gateway, DNS zone) standardized into a single shared tier.
-- **Tenant data isolation boundary** — start with tenant-key-based logical isolation on shared resources → staged migration path to physical isolation.
-- **Placement · risk review** — shared resources placed in the Hub/common Spoke (Private Endpoint access); reviewed SPOF · cardinality impact of common components.
+- **Tenant isolation boundary design** — start with tenant-key-based logical isolation → staged migration path to physical isolation.
+- **Placement · risk review** — shared resources placed in the Hub/common Spoke (Private Endpoint access); reviewed single point of failure (SPOF) impact of common components.
 
 ✅ **Outcomes** :
-- **Current-state analysis** — 3-Tier architecture with PRD / STG co-located in a single VNET per environment
+- **Current-state diagnosis** — surfaced isolation/governance risks of a 3-Tier structure with Prod / STG co-located in a single VNET
 - **To-Be architecture documentation** — target architecture design on Hub & Spoke + Shared Tier separation
 - **Multi-tenant routing design** — per-tenant domain branching via AGW Host/Path
 - **Compliance mapping** — Compliance Architecture Plan against SOC 2 / ISO 27001
 
-🔨 **Tech** : Azure AGW, AFD, AKS / VMSS, Private Endpoint, MI, Azure OpenAI, RBAC, Jenkins, Hub & Spoke
+🔨 **Tech** : Azure AGW, AFD, AKS / VMSS, Private Endpoint, MI, RBAC, Jenkins, Hub & Spoke
 
 ---
 
@@ -213,9 +213,9 @@ Consolidated per-OEM CI/CD environments into a single system. Scenario/action-le
 | Certification | Issued | Issuer |
 |---------------|--------|--------|
 | Kubernetes and Cloud Native Associate (**KCNA**) | Jan 2026 | The Linux Foundation |
-| Certified Kubernetes Security Specialist (**CKS**) | Mar 2024 | The Linux Foundation |
+| Certified Kubernetes Security Specialist (**CKS**) | Mar 2024 | The Linux Foundation _(exp. Mar 2026)_ |
 | Certified Kubernetes Application Developer (**CKAD**) | Feb 2024 | The Linux Foundation |
-| Certified Kubernetes Administrator (**CKA**) | Sep 2022 | The Linux Foundation _(renewal status — verify)_ |
+| Certified Kubernetes Administrator (**CKA**) | Sep 2022 | The Linux Foundation _(exp. Sep 2025)_ |
 | Microsoft Certified: **Azure Solutions Architect Expert** (AZ-305) | Aug 2022 | Microsoft |
 | Microsoft Certified: Azure Administrator Associate (AZ-104) | Aug 2022 | Microsoft |
 | NAVER Cloud Platform Certified Associate | Oct 2020 | NAVER Cloud |
@@ -245,9 +245,9 @@ B.S. in Game Science
 
 ## About
 
-I am an 8-year engineer who has expanded from **SW verification (QA) → CI/CD automation → Cloud Infrastructure → SRE/Observability**. From automotive telematics SW verification (GM/VW/Hyundai) → multi-OEM CI/CD integration on Jenkins/Gerrit/Docker → Azure AKS operations / Landing Zone design → currently establishing the observability standard in a Brownfield environment.
+I am an 8-year engineer who has expanded from **SW verification (QA) → CI/CD automation → Cloud Infrastructure → SRE/Observability**. From automotive telematics SW verification (GM/VW/Hyundai) → multi-OEM CI/CD integration on Jenkins/Gerrit/Docker → Azure AKS operations / Landing Zone design → currently leading Azure SaaS platform architecture/governance design and observability standardization.
 
-At **emro's Cloud Architecture Part**, I am establishing the SRE standard for the Caidentia operational environment from the ground up. Key deliverables include (1) an integrated observability standard for Spring Boot + Legacy Spring MVC on Azure AKS (Master Plan + Phase 0–4) and 11 runbooks, (2) SSI (AC01–AC06)-based OS verification & hardening automation scripts in production (CAI-SO-01 control), (3) a 3-Tier Shared → multi-tenant SaaS redesign (SOC 2 / ISO 27001, shared service tier standardization, AGW domain routing), and (4) a Caidentia DR Zone design (Warm Standby, PostgreSQL Virtual Endpoint + RA-GRS, RTO 15 min / RPO 1 hr, Terraform codification).
+At **emro's Cloud Architecture Part**, I lead the Azure platform build and Best Practice (CAF / WAF) architecture & governance design for the Caidentia SaaS platform, followed by operational maturity work. Key deliverables include (1) the Landing Zone · governance framework and **FinOps cost optimization (~55% monthly run-cost reduction)**, (2) an integrated observability standard for Spring Boot + Legacy Spring MVC on Azure AKS (Master Plan + Phase 0–4), (3) SSI (AC01–AC06)-based OS verification & hardening automation scripts in production (CAI-SO-01 control), (4) a 3-Tier Shared → multi-tenant SaaS redesign (SOC 2 / ISO 27001, shared service tier standardization, AGW domain routing), and (5) a Caidentia DR Zone design (Warm Standby, PostgreSQL Virtual Endpoint + RA-GRS, RTO 15 min / RPO 1 hr, Terraform codification).
 
 In earlier roles at **Cloocus (May 2022 – Apr 2025)**, I handled the KMTC AKS zero-downtime version upgrade (1.20→1.28.9 Blue/Green), the Handok · Sungju DND Azure Landing Zone builds, and the Krafton AKS-based RedisJson 1000-Pod PoC.
 

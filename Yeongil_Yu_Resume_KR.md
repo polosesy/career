@@ -10,7 +10,7 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 
 ## 한줄 소개
 
-8년차 Cloud Infrastructure / DevOps / SRE 엔지니어. **QA → 형상관리,CI/CD → Cloud Architect → SRE/Observability** 로 영역을 확장하며 Azure 환경에서 AKS 운영, Landing Zone 설계, **옵저버빌리티(Prometheus / Grafana / Alloy + OTel) 표준 수립**, SSI 체크리스트 기반 OS 골든이미지 하드닝 스크립트 자동화, 멀티테넌트 SaaS 재설계를 주도해왔습니다. **KCNA · CKS · CKAD · CKA + Azure Solutions Architect Expert** 보유. 현재 AI 인프라와 멀티클라우드 플랫폼 엔지니어링으로 영역을 확장 중입니다.
+8년차 Cloud Infrastructure / DevOps / SRE 엔지니어. **QA → 형상관리,CI/CD → Cloud Architect → SRE/Observability** 로 영역을 확장하며 Azure 환경에서 AKS 운영, Landing Zone 설계, **옵저버빌리티(Prometheus / Grafana / Alloy + OTel) 표준 수립**, SSI 체크리스트 기반 OS 보안 하드닝/검증 스크립트 자동화, 멀티테넌트 SaaS 재설계를 주도해왔습니다. **KCNA · CKS · CKAD · CKA + Azure Solutions Architect Expert** 보유. 현재 AI 인프라와 멀티클라우드 플랫폼 엔지니어링으로 영역을 확장 중입니다.
 
 ---
 
@@ -23,7 +23,7 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 | **IaC** | Terraform, ARM |
 | **CI / CD** | Jenkins (shared library), GitLab CI, Azure DevOps, ArgoCD |
 | **Observability** | Prometheus, Grafana, Grafana Alloy, OpenTelemetry, Loki, Tempo, Micrometer, JMX Exporter |
-| **SRE 실무** | SLI / SLO, Error Budget Burn-Rate, RED + USE, Runbook 표준화, Incident Postmortem, DR / BCP (Warm Standby, RTO / RPO, Region Failover) |
+| **SRE 실무** | SLI / SLO, Error Budget Burn-Rate, RED + USE, Incident Postmortem, DR / BCP (Warm Standby, RTO / RPO, Region Failover) |
 | **언어** | PowerShell · Bash (자동화 사용) · Java / Spring (운영·계측 대상) · TypeScript / Node.js · Python (AI 보조 개발) |
 | **AI 도구** | Claude Code |
 
@@ -35,7 +35,7 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 
 **책임 / 클라우드아키텍처파트**
 
-Caidentia SaaS 플랫폼의 Azure 환경을 구축하고, Best Practice(CAF / WAF) 기준으로 아키텍처·거버넌스를 설계·구축. 이후 아키텍처·운영 고도화(멀티테넌트 재설계, 옵저버빌리티 표준, OS 자동화)를 주도.
+Caidentia SaaS 플랫폼의 Azure 환경을 구축하고, Best Practice(CAF / WAF) 기준으로 아키텍처·거버넌스를 설계·구축. 이후 아키텍처·운영 고도화(멀티테넌트 재설계, 옵저버빌리티 표준, OS 하드닝 자동화)를 주도.
 
 **아키텍처 / 거버넌스 (주 업무)**
 
@@ -47,8 +47,8 @@ Caidentia SaaS 플랫폼의 Azure 환경을 구축하고, Best Practice(CAF / WA
 **아키텍처 / 운영 고도화**
 
 - **Caidentia AKS 옵저버빌리티 표준 수립** 5-Tier 대시보드 구조, SLI/SLO + Error Budget Burn-Rate 알림 체계 정의.
-- **Spring Boot + Legacy Spring MVC/Tomcat 통합 계측 트랙** 설계 — Micrometer + OpenTelemetry + PrometheusMeterRegistry + JMX Exporter sidecar 를 **Grafana Alloy DaemonSet 한 곳으로 수렴**해 Azure Managed Prometheus / Loki / Tempo 로 전송. (Terraform import, **런북 11건** 포함)
-- **Caidentia OS 골든이미지 자동화** (CAI-SO-01 통제) — SSI(AC01~AC06) 기반 **검증·하드닝 자동화 스크립트 운영 적용**.
+- **Spring Boot + Legacy Spring MVC/Tomcat 통합 계측 트랙** 설계 — Micrometer + OpenTelemetry + PrometheusMeterRegistry + JMX Exporter sidecar 를 **Grafana Alloy DaemonSet 한 곳으로 수렴**해 Azure Managed Prometheus / Loki / Tempo 로 전송.
+- **Caidentia OS 보안 하드닝/검증 자동화** (CAI-SO-01 통제) — SSI(AC01~AC06) 기반 **검증·하드닝 자동화 스크립트 운영 적용**.
 
 ---
 
@@ -91,9 +91,9 @@ _엠로 · 2026. 04. ~ 진행중_
 
 📝 **배경** : Caidentia 운영 환경이 단일 APM(Whatap)에 의존하고 메트릭이 단편화되어, Spring Boot + Legacy Spring MVC 혼재 워크로드 전반의 SLI/SLO 정의와 일관된 장애 원인 분석(RCA)이 어려운 상태 — 표준화된 옵저버빌리티 체계 부재.
 🎯 **과제** : Whatap 단일 의존 + 메트릭 단편화 → Azure 매니지드 서비스(AMW/AMG) 기반 표준 도입, 운영 무중단
-🤹 **역할** : 옵저버빌리티 표준 자발적 제안 및 단독 구축 (Brownfield, 운영 적용 진행중)
+🤹 **역할** : 옵저버빌리티 표준 자발적 제안 및 단독 구축 (파일럿 진행중)
 ✅ **성과** :
-- Master Plan(Four Golden Signals / RED+USE / SLI-SLO / Error Budget Burn-Rate / 카디널리티 룰) 1문서 표준화
+- Master Plan(Four Golden Signals / RED+USE / SLI-SLO / Error Budget Burn-Rate) 1문서 표준화
 - Phase 0 Terraform Brownfield import (AMG + Monitor Workspace + AAD/RBAC + Alloy DaemonSet)
 - Phase 1 Spring Boot + Legacy Spring MVC 동시 계측 표준 정립
 - Phase 2 5-Tier 대시보드 JSON-as-Code → 신규 서비스 **30분 내 대시보드 적용**
@@ -104,7 +104,7 @@ _엠로 · 2026. 04. ~ 진행중_
 
 ---
 
-### Caidentia 멀티테넌트 SaaS + 단일 엔터프라이즈 SaaS
+### Caidentia 멀티테넌트 SaaS + 단일 엔터프라이즈 SaaS 아키텍처 재설계
 _엠로 · 2025. ~ 진행중_
 
 📝 **배경** : 3-Tier 구조 (환경별 단일 VNET 구성 및 일부 거버넌스 미정립)
@@ -118,16 +118,16 @@ _엠로 · 2025. ~ 진행중_
 
 🧩 **Shared 서비스 아키텍처 구성** :
 - **Shared Tier 분리** — 테넌트 공통 기능(DB접근제어, Bastion, VPN Gateway, DNS zone)을 단일 공유 계층으로 표준화.
-- **테넌트 데이터 격리 경계** — 공유 자원 내 테넌트 키 기반 논리 격리에서 출발 → 단계적 물리 격리 전환 경로 설계.
-- **배치 · 리스크 검토** — Shared 자원은 Hub/공용 Spoke 에 배치(Private Endpoint 접근), 공용 컴포넌트의 SPOF · 카디널리티 영향 사전 검토.
+- **테넌트 격리 경계 설계** — 테넌트 키 기반 논리 격리에서 출발 → 단계적 물리 격리 전환 경로 설계.
+- **배치 · 리스크 검토** — Shared 자원은 Hub/공용 Spoke 에 배치(Private Endpoint 접근), 공용 컴포넌트의 단일 장애점(SPOF) 영향 사전 검토.
 
 ✅ **성과** :
-- **현행 분석** — 환경별(PRD / STG)이 단일 VNET 내에 함께 구성된 3-Tier 아키텍처
+- **현행 아키텍처 진단** — 환경별(Prod / STG)이 단일 VNET 에 공존하는 3-Tier 구조의 격리 · 거버넌스 리스크 도출
 - **To-Be 아키텍처 문서화** — Hub & Spoke + Shared Tier 분리 기반 목표 아키텍처 설계서
 - **멀티테넌트 라우팅 설계** — AGW Host/Path 기반 테넌트별 도메인 분기
 - **컴플라이언스 매핑** — SOC 2 / ISO 27001 기준 Compliance Architecture Plan
 
-🔨 **기술** : Azure AGW, AFD, AKS / VMSS, Private Endpoint, MI, Azure OpenAI, RBAC, Jenkins, Hub & Spoke
+🔨 **기술** : Azure AGW, AFD, AKS / VMSS, Private Endpoint, MI, RBAC, Jenkins, Hub & Spoke
 
 ---
 
@@ -213,9 +213,9 @@ _건우솔루션 · 2019. 07. ~ 2020. 01._
 | 자격증 | 취득 | 발급기관 |
 |--------|------|----------|
 | Kubernetes and Cloud Native Associate (**KCNA**) | 2026. 01. | The Linux Foundation |
-| Certified Kubernetes Security Specialist (**CKS**) | 2024. 03. | The Linux Foundation |
+| Certified Kubernetes Security Specialist (**CKS**) | 2024. 03. | The Linux Foundation _(만료 2026. 03)_  | 
 | Certified Kubernetes Application Developer (**CKAD**) | 2024. 02. | The Linux Foundation |
-| Certified Kubernetes Administrator (**CKA**) | 2022. 09. | The Linux Foundation _(2025. 09)_ |
+| Certified Kubernetes Administrator (**CKA**) | 2022. 09. | The Linux Foundation _(만료 2025. 09)_ |
 | Microsoft Certified: **Azure Solutions Architect Expert** (AZ-305) | 2022. 08. | Microsoft |
 | Microsoft Certified: Azure Administrator Associate (AZ-104) | 2022. 08. | Microsoft |
 | NAVER Cloud Platform Certified Associate | 2020. 10. | NAVER Cloud |
@@ -245,9 +245,9 @@ B.S. 게임학과 (학사 졸업)
 
 ## 자기소개
 
-저는 **SW 검증(QA) → CI/CD 자동화 → Cloud Infrastructure → SRE/Observability** 로 영역을 확장해온 **8년차 엔지니어**입니다. 자동차 텔레매틱스 SW 검증(GM/VW/현대) → Jenkins/Gerrit/Docker 기반 멀티 OEM CI/CD 통합 시스템 구축 → Azure AKS 운영 / Landing Zone 설계 → 현재 Brownfield 환경의 옵저버빌리티 표준 수립을 담당하고 있습니다.
+저는 **SW 검증(QA) → CI/CD 자동화 → Cloud Infrastructure → SRE/Observability** 로 영역을 확장해온 **8년차 엔지니어**입니다. 자동차 텔레매틱스 SW 검증(GM/VW/현대) → Jenkins/Gerrit/Docker 기반 멀티 OEM CI/CD 통합 시스템 구축 → Azure AKS 운영 / Landing Zone 설계 → 현재 Azure SaaS 플랫폼 아키텍처·거버넌스 설계와 옵저버빌리티 표준 수립을 담당하고 있습니다.
 
-**엠로 클라우드아키텍처파트**에서는 Caidentia 운영 환경의 SRE 표준을 정립하고 있습니다. 대표적인 산출물로 (1) Azure AKS 위 Spring Boot + Legacy Spring MVC 통합 옵저버빌리티 표준(Master Plan + Phase 0~4) 및 런북 11건, (2) SSI(AC01~AC06) 기반 OS 검증·하드닝 자동화 스크립트 운영 적용 (CAI-SO-01 통제), (3) 3-Tier Shared → Multi-tenant SaaS 재설계 (SOC2 / ISO 27001 대응, Shared 서비스 계층 표준화, AGW 도메인 라우팅), (4) Caidentia DR(재해복구) Zone 설계 (Warm Standby, PostgreSQL Virtual Endpoint + RA-GRS, RTO 15분 / RPO 1시간, Terraform 코드화) 가 있습니다.
+**엠로 클라우드아키텍처파트**에서는 Caidentia SaaS 플랫폼의 Azure 환경 구축과 Best Practice(CAF / WAF) 기반 아키텍처·거버넌스 설계를 주도하고, 이어 운영 고도화를 진행하고 있습니다. 대표 산출물로 (1) Landing Zone · 거버넌스 체계와 **FinOps 비용 최적화(월 운영비 약 55% 절감)**, (2) Azure AKS 위 Spring Boot + Legacy Spring MVC 통합 옵저버빌리티 표준(Master Plan + Phase 0~4), (3) SSI(AC01~AC06) 기반 OS 검증·하드닝 자동화 스크립트 운영 적용 (CAI-SO-01 통제), (4) 3-Tier Shared → Multi-tenant SaaS 재설계 (SOC2 / ISO 27001 대응, Shared 서비스 계층 표준화, AGW 도메인 라우팅), (5) Caidentia DR(재해복구) Zone 설계 (Warm Standby, PostgreSQL Virtual Endpoint + RA-GRS, RTO 15분 / RPO 1시간, Terraform 코드화) 가 있습니다.
 
 이전 경력에서는 **클루커스(2022.05~2025.04)** 에서 고려해운 AKS 무중단 버전 업그레이드(1.20→1.28.9 Blue/Green), 한독 · 성주DND Azure Landing Zone 구축, 크래프톤 AKS 기반 RedisJson 1000-Pod PoC 등을 담당했습니다.
 
