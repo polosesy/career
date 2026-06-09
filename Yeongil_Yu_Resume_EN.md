@@ -21,9 +21,9 @@ LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
 | **Cloud** | Azure (Expert), NCP, AWS / GCP |
 | **Containers** | Kubernetes (AKS, EKS, OpenShift), Docker, Helm |
 | **IaC** | Terraform, ARM |
-| **CI / CD** | Jenkins (shared library), GitLab CI, Azure DevOps, ArgoCD, GitHub Actions |
+| **CI / CD** | Jenkins (shared library), GitLab CI, Azure DevOps, ArgoCD |
 | **Observability** | Prometheus, Grafana, Grafana Alloy, OpenTelemetry, Loki, Tempo, Micrometer, JMX Exporter |
-| **SRE Practices** | SLI / SLO, Error Budget Burn-Rate, RED + USE, Brownfield phased rollout, Runbook standardization, Incident postmortem, DR / BCP (Warm Standby, RTO / RPO, Region Failover) |
+| **SRE Practices** | SLI / SLO, Error Budget Burn-Rate, RED + USE, Runbook standardization, Incident postmortem, DR / BCP (Warm Standby, RTO / RPO, Region Failover) |
 | **Languages** | PowerShell · Bash (hands-on automation) · Java / Spring (operated / instrumented) · TypeScript / Node.js · Python (AI-assisted development) |
 | **AI Tooling** | Claude Code |
 
@@ -87,7 +87,7 @@ Automotive telematics SW verification.
 ## Selected Projects
 
 ### Caidentia AKS Observability Standard & Phased Rollout
-_emro · May 2025 – Present (in progress)_
+_emro · Apr 2026 – Present (in progress)_
 
 📝 **Background** : Caidentia's operational environment relied on a single APM (Whatap) with fragmented metrics, making it hard to define SLI/SLO and perform consistent root-cause analysis (RCA) across mixed Spring Boot + Legacy Spring MVC workloads — no standardized observability system.
 🎯 **Challenge** : Single Whatap dependency + metric fragmentation → adopt an Azure managed-service (AMW/AMG) standard, zero operational downtime
@@ -99,34 +99,15 @@ _emro · May 2025 – Present (in progress)_
 - Phase 2 5-tier dashboards as JSON-as-Code → **dashboard applied to a new service within 30 minutes**
 - Phase 3 Symptom-vs-Cause alerts + Notification Policy + 11 runbooks
 - Phase 4 Loki + Tempo on AKS + Azure Blob design + OTel Java Agent + Tail Sampling
-- **11 cumulative pitfall retrospectives** documented from operations
 
 🔨 **Tech** : Azure AKS, Azure Managed Prometheus / Grafana, Grafana Alloy, Loki, Tempo, OpenTelemetry, Micrometer, JMX Exporter, Terraform, Spring 6, Slack + Azure Logic App
-
----
-
-### Caidentia Ubuntu OS Golden Image Automation (PoC)
-_emro · 2025 – PoC (not in production)_
-
-📝 **Background** : OS golden image builds ran as manual procedures, risking skipped steps / review delays / weak audit trails
-🎯 **Challenge** : Satisfy the CAI-SO-01 control + codify the build + retain the Cloud Security Part's manual approval gate (immutable image policy)
-🤹 **Role** : Automation design and PoC implementation (sole, not yet in production)
-✅ **Outcomes** :
-- 100% audit traceability between SSI checklist (AC01–AC06) ↔ Ansible tasks
-- Introduced Molecule-based role unit testing
-- **GitLab CI (lint + Molecule) + Jenkins (Packer build / Compute Gallery publish / security approval / smoke-test)** split
-- KR (koreacentral) → US (eastus) async snapshot replication + automatic multi-region Image Version creation
-- Nightly drift-check Jenkinsfile (Continuous Evaluation)
-- Azure Control VM setup guide for WSL-unavailable environments + INCIDENTS / IMAGE-CAPTURE / SSI-mapping / Versioning docs
-
-🔨 **Tech** : Packer, Ansible (+ Molecule), Jenkins (shared library), GitLab CI, Azure Compute Gallery, Azure Managed Identity, Ubuntu, SSI
 
 ---
 
 ### Caidentia Multi-tenant SaaS + Single-tenant Enterprise SaaS
 _emro · 2025 – Present (in progress)_
 
-📝 **Background** : 3-Tier structure (shared DB/Storage, mixed Demo/POC/Prod)
+📝 **Background** : 3-Tier structure (a single VNET per environment, some governance not yet established)
 🎯 **Challenge** : Meet SOC 2 Type II / ISO 27001 certification criteria + tenant isolation
 🤹 **Role** : Architecture design and decision documentation (team collaboration)
 
@@ -136,12 +117,12 @@ _emro · 2025 – Present (in progress)_
 - **Workload tier** — AKS (MSA) workloads + 3-Tier VMSS, Managed Identity + RBAC least-privilege management.
 
 🧩 **Shared service architecture** :
-- **Shared Tier separation** — common tenant features (common RDB · Search · Object Storage · AI Gateway) standardized into a single shared tier.
+- **Shared Tier separation** — common tenant functions (DB access control, Bastion, VPN Gateway, DNS zone) standardized into a single shared tier.
 - **Tenant data isolation boundary** — start with tenant-key-based logical isolation on shared resources → staged migration path to physical isolation.
 - **Placement · risk review** — shared resources placed in the Hub/common Spoke (Private Endpoint access); reviewed SPOF · cardinality impact of common components.
 
 ✅ **Outcomes** :
-- **Current-state analysis** — 12 gaps in the existing structure identified and priority-mapped
+- **Current-state analysis** — 3-Tier architecture with PRD / STG co-located in a single VNET per environment
 - **To-Be architecture documentation** — target architecture design on Hub & Spoke + Shared Tier separation
 - **Multi-tenant routing design** — per-tenant domain branching via AGW Host/Path
 - **Compliance mapping** — Compliance Architecture Plan against SOC 2 / ISO 27001
@@ -151,19 +132,19 @@ _emro · 2025 – Present (in progress)_
 ---
 
 ### Caidentia DR (Disaster Recovery) Zone Design & Warm Standby
-_emro · 2025 – Present (in progress)_
+_emro · Aug 2025 – Oct 2025_
 
 📝 **Background** : No DR Zone for region-level outage in the Caidentia operational environment → a recovery scheme for core resources (DB / Storage) was needed
 🎯 **Challenge** : Meet **RTO 15 min / RPO 1 hr** + minimize DR always-on cost (Warm Standby) + work around Azure managed Failover's "not user-testable" limitation
-🤹 **Role** : DR architecture design · Terraform codification · DR drill procedure (sole, guide standardization)
+🤹 **Role** : DR architecture design · Terraform codification · DR drill procedure design & execution (guide standardization)
 ✅ **Outcomes** :
 - **Cost-tiered Warm Standby design** — always-on (near-zero cost: VNet / Subnet / NAT Gateway) vs disaster-time Terraform manual provisioning (AGW / LB / Redis / VM)
 - **PostgreSQL Flexible read replica + Virtual Endpoint** — pair-region-independent replication, failover-transparent endpoints (Primary auto-relay) (RTO 7 s / RPO 20 min)
-- **RA-GRS (read-access geo-redundant) Blob Storage** — pair-region auto replication, Primary Endpoint auto-relay on failover (RTO 15 min / RPO 20 min)
+- **RA-GRS (read-access geo-redundant) Blob Storage** — pair-region auto replication, manual Primary Endpoint promotion on failover (RTO 15 min / RPO 20 min)
 - **DR drill procedure standardization** — worked around managed Failover (Key Vault, etc.) non-testability via "assume failover occurred + pre-provision in pair region," with a guide for adding a Storage read replica when the training Primary is Staging
 - **Caidentia DR Terraform code** — codified disaster-time resources (AGW / LB / Redis / VM) for reproducible recovery
 
-🔨 **Tech** : Azure (East US ↔ West US Region Pair, Failover), PostgreSQL Flexible Server (Virtual Endpoint, Read Replica), RA-GRS Blob Storage, Azure Key Vault, Application Gateway, Load Balancer, Redis, Terraform
+🔨 **Tech** : Azure (East US ↔ West US Region Pair, Failover), PostgreSQL Flexible Server (Virtual Endpoint, Read Replica), RA-GRS Blob Storage, Terraform
 
 ---
 
@@ -266,7 +247,7 @@ B.S. in Game Science
 
 I am an 8-year engineer who has expanded from **SW verification (QA) → CI/CD automation → Cloud Infrastructure → SRE/Observability**. From automotive telematics SW verification (GM/VW/Hyundai) → multi-OEM CI/CD integration on Jenkins/Gerrit/Docker → Azure AKS operations / Landing Zone design → currently establishing the observability standard in a Brownfield environment.
 
-At **emro's Cloud Architecture Part**, I am establishing the SRE standard for the Caidentia operational environment from the ground up. Key deliverables include (1) an integrated observability standard for Spring Boot + Legacy Spring MVC on Azure AKS (Master Plan + Phase 0–4) and 11 runbooks, (2) Packer + Ansible + Jenkins Ubuntu OS golden image automation (CAI-SO-01 control, SSI AC01–AC06 auto-mapping, nightly drift check), (3) a 3-Tier Shared → multi-tenant SaaS redesign (SOC 2 / ISO 27001, shared service tier standardization, AGW domain routing, GPU RI absorption design), and (4) a Caidentia DR Zone design (Warm Standby, PostgreSQL Virtual Endpoint + RA-GRS, RTO 15 min / RPO 1 hr, Terraform codification).
+At **emro's Cloud Architecture Part**, I am establishing the SRE standard for the Caidentia operational environment from the ground up. Key deliverables include (1) an integrated observability standard for Spring Boot + Legacy Spring MVC on Azure AKS (Master Plan + Phase 0–4) and 11 runbooks, (2) Packer + Ansible + Jenkins Ubuntu OS golden image automation (CAI-SO-01 control, SSI AC01–AC06 auto-mapping, nightly drift check), (3) a 3-Tier Shared → multi-tenant SaaS redesign (SOC 2 / ISO 27001, shared service tier standardization, AGW domain routing), and (4) a Caidentia DR Zone design (Warm Standby, PostgreSQL Virtual Endpoint + RA-GRS, RTO 15 min / RPO 1 hr, Terraform codification).
 
 In earlier roles at **Cloocus (May 2022 – Apr 2025)**, I handled the KMTC AKS zero-downtime version upgrade (1.20→1.28.9 Blue/Green), the Handok · Sungju DND Azure Landing Zone builds, and the Krafton AKS-based RedisJson 1000-Pod PoC.
 

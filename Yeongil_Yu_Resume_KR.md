@@ -87,7 +87,7 @@ Caidentia SaaS 플랫폼의 Azure 환경을 구축하고, Best Practice(CAF / WA
 ## 주요 프로젝트 (별도 노출)
 
 ### Caidentia AKS 옵저버빌리티 표준 수립 및 Phase 별 구축
-_엠로 · 2026. 05. ~ 진행중_
+_엠로 · 2026. 04. ~ 진행중_
 
 📝 **배경** : Caidentia 운영 환경이 단일 APM(Whatap)에 의존하고 메트릭이 단편화되어, Spring Boot + Legacy Spring MVC 혼재 워크로드 전반의 SLI/SLO 정의와 일관된 장애 원인 분석(RCA)이 어려운 상태 — 표준화된 옵저버빌리티 체계 부재.
 🎯 **과제** : Whatap 단일 의존 + 메트릭 단편화 → Azure 매니지드 서비스(AMW/AMG) 기반 표준 도입, 운영 무중단
@@ -99,7 +99,6 @@ _엠로 · 2026. 05. ~ 진행중_
 - Phase 2 5-Tier 대시보드 JSON-as-Code → 신규 서비스 **30분 내 대시보드 적용**
 - Phase 3 Symptom-vs-Cause 알림 + Notification Policy + 런북 11건
 - Phase 4 Loki + Tempo on AKS + Azure Blob 설계 + OTel Java Agent + Tail Sampling
-- 운영 중 발견한 **함정 11건 누적 회고 문서화**
 
 🔨 **기술** : Azure AKS, Azure Managed Prometheus / Grafana, Grafana Alloy, Loki, Tempo, OpenTelemetry, Micrometer, JMX Exporter, Terraform, Spring 6, Slack + Azure Logic App
 
@@ -108,22 +107,22 @@ _엠로 · 2026. 05. ~ 진행중_
 ### Caidentia 멀티테넌트 SaaS + 단일 엔터프라이즈 SaaS
 _엠로 · 2025. ~ 진행중_
 
-📝 **배경** : 3-Tier 구조 (DB/Storage 공유, Demo/POC/Prod 혼재)
+📝 **배경** : 3-Tier 구조 (환경별 단일 VNET 구성 및 일부 거버넌스 미정립)
 🎯 **과제** : SOC 2 Type II / ISO 27001 인증 기준 충족 + 테넌트 격리
 🤹 **역할** : 아키텍처 설계 및 의사결정 문서화 (팀 협업)
 
 🏗️ **서비스 아키텍처 설계 구성** :
 - **네트워크 토폴로지** — Hub & Spoke 기반으로 환경별 Spoke(Prod / STG) 분리, Hub 에 공용 보안/게이트웨이 집약. 외부 진입은 AFD → AGW 2단 계층, 내부 통신은 Private Endpoint + Private DNS 로 폐쇄.
 - **트래픽 / 테넌트 라우팅** — AGW Host/Path 라우팅으로 테넌트별 도메인 분기, 테넌트 식별 → 백엔드 풀 매핑.
-- **워크로드 계층** — AKS(MSA) 워크로드 구성, 3Tier VMSS 구성, Managed Identity + RBAC 기반 최소 권한 관리.
+- **워크로드 계층** — AKS(MSA) 워크로드 구성, 3-Tier VMSS 구성, Managed Identity + RBAC 기반 최소 권한 관리.
 
 🧩 **Shared 서비스 아키텍처 구성** :
-- **Shared Tier 분리** — 테넌트 공통 기능(공용 RDB · Search · Object Storage · AI Gateway)을 단일 공유 계층으로 표준화.
+- **Shared Tier 분리** — 테넌트 공통 기능(DB접근제어, Bastion, VPN Gateway, DNS zone)을 단일 공유 계층으로 표준화.
 - **테넌트 데이터 격리 경계** — 공유 자원 내 테넌트 키 기반 논리 격리에서 출발 → 단계적 물리 격리 전환 경로 설계.
 - **배치 · 리스크 검토** — Shared 자원은 Hub/공용 Spoke 에 배치(Private Endpoint 접근), 공용 컴포넌트의 SPOF · 카디널리티 영향 사전 검토.
 
 ✅ **성과** :
-- **현행 분석** — 기존 구조 Gap 12건 식별 및 우선순위 매핑
+- **현행 분석** — 환경별(PRD / STG)이 단일 VNET 내에 함께 구성된 3-Tier 아키텍처
 - **To-Be 아키텍처 문서화** — Hub & Spoke + Shared Tier 분리 기반 목표 아키텍처 설계서
 - **멀티테넌트 라우팅 설계** — AGW Host/Path 기반 테넌트별 도메인 분기
 - **컴플라이언스 매핑** — SOC 2 / ISO 27001 기준 Compliance Architecture Plan
@@ -141,7 +140,7 @@ _엠로 · 2025.08 ~ 2025.10_
 ✅ **성과** :
 - **비용 계층화 Warm Standby 설계** — 상시 유지(거의 무과금: VNet / Subnet / NAT Gateway) vs 재해 시 Terraform 수동 생성(AGW / LB / Redis / VM) 으로 자원 분리
 - **PostgreSQL Flexible 읽기 복제본 + Virtual Endpoint** — Pair Region 비의존 복제, Failover 시 Endpoint 변경 무중단(Primary 자동 중계) (RTO 7초 / RPO 20분)
-- **RA-GRS(읽기 전용 지역 중복) Blob Storage** — Pair Region 자동 복제, Failover 시 Primary Endpoint 메뉴얼 승격 (RTO 15분 / RPO 20분)
+- **RA-GRS(읽기 전용 지역 중복) Blob Storage** — Pair Region 자동 복제, Failover 시 Primary Endpoint 수동 승격 (RTO 15분 / RPO 20분)
 - **DR 훈련 절차 표준화** — 관리형 Failover(Key Vault 등) 테스트 불가 한계를 "Failover 발생 가정 + Pair Region 사전 구성"으로 우회, Staging-Primary 훈련 시 Storage 읽기 복제본 추가 구성 가이드
 - **Caidentia DR Terraform 구성 코드** — 재해 시 생성 자원(AGW / LB / Redis / VM) 코드화로 복구 재현성 확보
 
@@ -248,7 +247,7 @@ B.S. 게임학과 (학사 졸업)
 
 저는 **SW 검증(QA) → CI/CD 자동화 → Cloud Infrastructure → SRE/Observability** 로 영역을 확장해온 **8년차 엔지니어**입니다. 자동차 텔레매틱스 SW 검증(GM/VW/현대) → Jenkins/Gerrit/Docker 기반 멀티 OEM CI/CD 통합 시스템 구축 → Azure AKS 운영 / Landing Zone 설계 → 현재 Brownfield 환경의 옵저버빌리티 표준 수립을 담당하고 있습니다.
 
-**엠로 클라우드아키텍처파트**에서는 Caidentia 운영 환경의 SRE 표준을 정립하고 있습니다. 대표적인 산출물로 (1) Azure AKS 위 Spring Boot + Legacy Spring MVC 통합 옵저버빌리티 표준(Master Plan + Phase 0~4) 및 런북 11건, (2) Packer + Ansible + Jenkins 기반 Ubuntu OS 골든이미지 자동화 (CAI-SO-01 통제, SSI AC01~AC06 자동 매핑, 야간 드리프트 점검), (3) 3-Tier Shared → Multi-tenant SaaS 재설계 (SOC2 / ISO 27001 대응, Shared 서비스 계층 표준화, AGW 도메인 라우팅, GPU RI 2대 흡수 설계), (4) Caidentia DR(재해복구) Zone 설계 (Warm Standby, PostgreSQL Virtual Endpoint + RA-GRS, RTO 15분 / RPO 1시간, Terraform 코드화) 가 있습니다.
+**엠로 클라우드아키텍처파트**에서는 Caidentia 운영 환경의 SRE 표준을 정립하고 있습니다. 대표적인 산출물로 (1) Azure AKS 위 Spring Boot + Legacy Spring MVC 통합 옵저버빌리티 표준(Master Plan + Phase 0~4) 및 런북 11건, (2) Packer + Ansible + Jenkins 기반 Ubuntu OS 골든이미지 자동화 (CAI-SO-01 통제, SSI AC01~AC06 자동 매핑, 야간 드리프트 점검), (3) 3-Tier Shared → Multi-tenant SaaS 재설계 (SOC2 / ISO 27001 대응, Shared 서비스 계층 표준화, AGW 도메인 라우팅), (4) Caidentia DR(재해복구) Zone 설계 (Warm Standby, PostgreSQL Virtual Endpoint + RA-GRS, RTO 15분 / RPO 1시간, Terraform 코드화) 가 있습니다.
 
 이전 경력에서는 **클루커스(2022.05~2025.04)** 에서 고려해운 AKS 무중단 버전 업그레이드(1.20→1.28.9 Blue/Green), 한독 · 성주DND Azure Landing Zone 구축, 크래프톤 AKS 기반 RedisJson 1000-Pod PoC 등을 담당했습니다.
 
