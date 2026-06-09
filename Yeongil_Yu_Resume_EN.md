@@ -48,7 +48,7 @@ Built the Azure environment for the Caidentia SaaS platform and designed/impleme
 
 - **Caidentia AKS observability standard** — 5-tier dashboard structure, SLI/SLO + Error Budget Burn-Rate alerting.
 - **Spring Boot + Legacy Spring MVC/Tomcat unified instrumentation track** — converging Micrometer + OpenTelemetry + PrometheusMeterRegistry + JMX Exporter sidecar into a single **Grafana Alloy DaemonSet** emitting to Azure Managed Prometheus / Loki / Tempo. (Terraform import, **11 runbooks** included)
-- **Caidentia OS golden image automation (PoC, not in production)** (Packer + Ansible + Jenkins, CAI-SO-01 control) — SSI (AC01–AC06) ↔ Ansible role audit mapping, Molecule unit tests, **GitLab CI (lint) + Jenkins (build/publish/approve) split**, async KR→US replication · nightly drift-check design validation.
+- **Caidentia OS golden image automation** (CAI-SO-01 control) — SSI (AC01–AC06)-based **verification & hardening automation scripts in production**. (The Packer + Ansible golden image build/publish pipeline — Molecule unit tests, **GitLab CI (lint) + Jenkins (build/publish/approve) split**, async KR→US replication, nightly drift-check — is at **PoC** stage.)
 
 ---
 
@@ -247,7 +247,7 @@ B.S. in Game Science
 
 I am an 8-year engineer who has expanded from **SW verification (QA) → CI/CD automation → Cloud Infrastructure → SRE/Observability**. From automotive telematics SW verification (GM/VW/Hyundai) → multi-OEM CI/CD integration on Jenkins/Gerrit/Docker → Azure AKS operations / Landing Zone design → currently establishing the observability standard in a Brownfield environment.
 
-At **emro's Cloud Architecture Part**, I am establishing the SRE standard for the Caidentia operational environment from the ground up. Key deliverables include (1) an integrated observability standard for Spring Boot + Legacy Spring MVC on Azure AKS (Master Plan + Phase 0–4) and 11 runbooks, (2) Packer + Ansible + Jenkins Ubuntu OS golden image automation (CAI-SO-01 control, SSI AC01–AC06 auto-mapping, nightly drift check), (3) a 3-Tier Shared → multi-tenant SaaS redesign (SOC 2 / ISO 27001, shared service tier standardization, AGW domain routing), and (4) a Caidentia DR Zone design (Warm Standby, PostgreSQL Virtual Endpoint + RA-GRS, RTO 15 min / RPO 1 hr, Terraform codification).
+At **emro's Cloud Architecture Part**, I am establishing the SRE standard for the Caidentia operational environment from the ground up. Key deliverables include (1) an integrated observability standard for Spring Boot + Legacy Spring MVC on Azure AKS (Master Plan + Phase 0–4) and 11 runbooks, (2) SSI (AC01–AC06)-based OS verification & hardening automation scripts in production + a Packer + Ansible golden image build pipeline PoC (CAI-SO-01 control), (3) a 3-Tier Shared → multi-tenant SaaS redesign (SOC 2 / ISO 27001, shared service tier standardization, AGW domain routing), and (4) a Caidentia DR Zone design (Warm Standby, PostgreSQL Virtual Endpoint + RA-GRS, RTO 15 min / RPO 1 hr, Terraform codification).
 
 In earlier roles at **Cloocus (May 2022 – Apr 2025)**, I handled the KMTC AKS zero-downtime version upgrade (1.20→1.28.9 Blue/Green), the Handok · Sungju DND Azure Landing Zone builds, and the Krafton AKS-based RedisJson 1000-Pod PoC.
 
