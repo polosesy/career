@@ -4,7 +4,7 @@
 
 📧 yeongil6012@gmail.com &nbsp;·&nbsp; 📱 010-2669-6014 &nbsp;·&nbsp; 📍 Seoul, South Korea
 
-LinkedIn: _[TBD]_ &nbsp;·&nbsp; GitHub: _[TBD]_
+LinkedIn: _www.linkedin.com/in/yeongil-yu-7bb014210_
 
 ---
 
